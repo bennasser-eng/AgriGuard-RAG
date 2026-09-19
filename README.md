@@ -1,7 +1,7 @@
 # AgriGuard-RAG
 AgriGuard-RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) system designed to answer regulatory and technical queries regarding French agricultural phytosanitary products (E-Phy database).
 
-By combining an ultra-low **latency intention router**, **hybrid vector retrieval**, and **automated reasoning pipelines**, AgriGuard ensures ***deterministic compliance verification*** while ***handling complex multi-constraint queries***.
+By combining an ultra-low **latency intention router**, **hybrid vector retrieval**, and **automated reasoning pipelines**, AgriGuard ensures **deterministic compliance verification** while **handling complex multi-constraint queries**.
 
 
 ## Architecture Overview
@@ -63,13 +63,12 @@ The system follows a Router-Driven Architecture designed to optimize response la
 
 
 
-
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-org/agri-guard-rag.git
-cd agri-guard-rag
+git clone https://github.com/bennasser-eng/AgriGuard-RAG.git
+cd AgriGuard-RAG
 ```
 
 
@@ -123,8 +122,8 @@ python -m src.retrieval.hybrid_search
 ## Roadmap & Next Steps
 
 * [x] Phase 1: Data Preparation & JSON Document Structuring
-* [x] Phase 2A: Low-Latency Intent Router & ML Classifier
-* [x] Phase 2B: Local Qdrant Indexing & Dual-Embedding Ingestion
-* [ ] Phase 2C: Hybrid Search Engine API Integration (`src/retrieval/`)
+* [x] Phase 2.1: Low-Latency Intent Router & ML Classifier
+* [x] Phase 2.2: Local Qdrant Indexing & Dual-Embedding Ingestion
+* [ ] Phase 2.3: Hybrid Search Engine API Integration (`src/retrieval/`)
 * [ ] Phase 3: Reasoning Agent for Complex Queries (LangGraph / ReAct)
 * [ ] Phase 4: Regulatory Guardrails & Evaluation Framework (Ragas)
