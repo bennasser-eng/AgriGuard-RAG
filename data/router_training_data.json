@@ -1,0 +1,1202 @@
+[
+  {
+    "query": "Propose un traitement pour Colza respectant une ZNT de 20m et un DAR < 60j.",
+    "label": 1
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant florasulame et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant mésotrione et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Colza avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Tournesol avec un DAR inférieur à 60 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quelles sont les substances actives de MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2180991.",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Rouille sur Tournesol compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2180991.",
+    "label": 0
+  },
+  {
+    "query": "Quel produit sur Orge permet de lutter contre Fusariose sans utiliser de tébuconazole ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre SARACEN DELTA et NEMO sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à BELEM 0,8 MG sans nicosulfuron.",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Tournesol respectant une ZNT de 20m et un DAR < 60j.",
+    "label": 1
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le délai de rentrée pour MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quel produit sur Blé permet de lutter contre Fusariose sans utiliser de tébuconazole ?",
+    "label": 1
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre NEMO et AMISTAR sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Tournesol permet de lutter contre Rouille sans utiliser de pendiméthaline ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la quantité maximale de SARACEN DELTA par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose une alternative à CUTER sans tébuconazole.",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Tournesol permet de lutter contre Septoriose sans utiliser de mésotrione ?",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à CUTER sans tébuconazole.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant tébuconazole et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant tébuconazole et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que BELEM 0,8 MG est autorisé sur Orge ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Blé avec un DAR inférieur à 24 jours.",
+    "label": 1
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant mésotrione et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant pendiméthaline et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que SARACEN DELTA est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que KORIT 420 FS est autorisé sur Colza ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Colza respectant une ZNT de 50m et un DAR < 60j.",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que CUTER est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Fusariose sur Orge compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Désherbage sur Maïs compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger AMISTAR et KORIT 420 FS pour traiter Septoriose sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Blé permet de lutter contre Septoriose sans utiliser de tébuconazole ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de SARACEN DELTA par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose une alternative à NEMO sans tébuconazole.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit KORIT 420 FS sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que CUTER est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de NEMO par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de KORIT 420 FS par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le DAR du produit KORIT 420 FS sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le numéro AMM de MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quelles sont les substances actives de CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant pendiméthaline et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Blé permet de lutter contre Fusariose sans utiliser de pendiméthaline ?",
+    "label": 1
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Propose une alternative à BELEM 0,8 MG sans florasulame.",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2080088.",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Blé avec un DAR inférieur à 30 jours.",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger AMISTAR et CUTER pour traiter Désherbage sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre NEMO et CUTER sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que BELEM 0,8 MG est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que NEMO est autorisé sur Colza ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Colza respectant une ZNT de 20m et un DAR < 48j.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre KORIT 420 FS et AMISTAR sur Colza ?",
+    "label": 1
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant mésotrione et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Rouille sur Tournesol compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Colza permet de lutter contre Fusariose sans utiliser de tébuconazole ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre MESOSTAR et KORIT 420 FS sur Colza ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre SARACEN DELTA et MESOSTAR sur Colza ?",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Désherbage sur Maïs compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la quantité maximale de MESOSTAR par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le DAR du produit BELEM 0,8 MG sur Tournesol ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre AMISTAR et KORIT 420 FS sur Colza ?",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Maïs avec un DAR inférieur à 30 jours.",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Maïs respectant une ZNT de 50m et un DAR < 30j.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Septoriose sur Maïs compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quelles sont les substances actives de NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de MESOSTAR par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant florasulame et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit SARACEN DELTA sur Colza ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de KORIT 420 FS par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant florasulame et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Désherbage sur Blé compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit BELEM 0,8 MG sur Tournesol ?",
+    "label": 0
+  },
+  {
+    "query": "Quel produit sur Orge permet de lutter contre Oïdium sans utiliser de tébuconazole ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Orge respectant une ZNT de 5m et un DAR < 30j.",
+    "label": 1
+  },
+  {
+    "query": "Puis-je mélanger MESOSTAR et SARACEN DELTA pour traiter Septoriose sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que CUTER est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que MESOSTAR est autorisé sur Orge ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger NEMO et MESOSTAR pour traiter Désherbage sur Blé ?",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Colza respectant une ZNT de 50m et un DAR < 24j.",
+    "label": 1
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Colza avec un DAR inférieur à 24 jours.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à AMISTAR sans pendiméthaline.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger CUTER et AMISTAR pour traiter Septoriose sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Maïs permet de lutter contre Oïdium sans utiliser de pendiméthaline ?",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Blé avec un DAR inférieur à 60 jours.",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Maïs respectant une ZNT de 5m et un DAR < 48j.",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Orge avec un DAR inférieur à 60 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit NEMO sur Blé ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Maïs avec un DAR inférieur à 60 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le délai de rentrée pour SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Quel produit sur Colza permet de lutter contre Fusariose sans utiliser de pendiméthaline ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2180991.",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Orge avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre KORIT 420 FS et AMISTAR sur Blé ?",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger NEMO et CUTER pour traiter Désherbage sur Maïs ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre BELEM 0,8 MG et AMISTAR sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Fusariose sur Colza compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Blé avec un DAR inférieur à 60 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre NEMO et KORIT 420 FS sur Maïs ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Propose une alternative à NEMO sans tébuconazole.",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que CUTER est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Quelles sont les substances actives de BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Orge avec un DAR inférieur à 60 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit SARACEN DELTA sur Tournesol ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre NEMO et BELEM 0,8 MG sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2180991.",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Maïs respectant une ZNT de 50m et un DAR < 60j.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit CUTER sur Blé ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre CUTER et MESOSTAR sur Colza ?",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que AMISTAR est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2010345.",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Maïs respectant une ZNT de 5m et un DAR < 60j.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à MESOSTAR sans florasulame.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2180991.",
+    "label": 0
+  },
+  {
+    "query": "Quel produit sur Colza permet de lutter contre Désherbage sans utiliser de mésotrione ?",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2080088.",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant tébuconazole et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Désherbage sur Orge compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger KORIT 420 FS et BELEM 0,8 MG pour traiter Rouille sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre KORIT 420 FS et CUTER sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que BELEM 0,8 MG est autorisé sur Tournesol ?",
+    "label": 0
+  },
+  {
+    "query": "Quelles sont les substances actives de SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger AMISTAR et MESOSTAR pour traiter Septoriose sur Maïs ?",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2080088.",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Maïs avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2180991.",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Orge avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à CUTER sans pendiméthaline.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à NEMO sans nicosulfuron.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à KORIT 420 FS sans mésotrione.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit MESOSTAR sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le DAR du produit NEMO sur Orge ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant mésotrione et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Quelles sont les substances actives de KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Colza avec un DAR inférieur à 30 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Blé permet de lutter contre Rouille sans utiliser de nicosulfuron ?",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que BELEM 0,8 MG est autorisé sur Colza ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger MESOSTAR et BELEM 0,8 MG pour traiter Fusariose sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à MESOSTAR sans mésotrione.",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Maïs permet de lutter contre Septoriose sans utiliser de tébuconazole ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre BELEM 0,8 MG et KORIT 420 FS sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que AMISTAR est autorisé sur Colza ?",
+    "label": 0
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Rouille sur Tournesol compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre CUTER et AMISTAR sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à CUTER sans tébuconazole.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Rouille sur Maïs compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Colza permet de lutter contre Désherbage sans utiliser de mésotrione ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la différence entre SARACEN DELTA et NEMO sur Maïs ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le délai de rentrée pour BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de SARACEN DELTA par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant mésotrione et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Quelles sont les substances actives de AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Propose une alternative à SARACEN DELTA sans pendiméthaline.",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Maïs avec un DAR inférieur à 24 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la quantité maximale de NEMO par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quelles sont les substances actives de MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le numéro AMM de SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le DAR du produit SARACEN DELTA sur Blé ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le délai de rentrée pour AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Désherbage sur Maïs compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Maïs avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant florasulame et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à SARACEN DELTA sans mésotrione.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de AMISTAR par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le numéro AMM de CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de SARACEN DELTA par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger NEMO et MESOSTAR pour traiter Septoriose sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger KORIT 420 FS et CUTER pour traiter Septoriose sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit AMISTAR sur Tournesol ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Tournesol respectant une ZNT de 50m et un DAR < 30j.",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Orge respectant une ZNT de 5m et un DAR < 48j.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la quantité maximale de SARACEN DELTA par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant florasulame et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Est-ce que AMISTAR est autorisé sur Colza ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le numéro AMM de SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Blé respectant une ZNT de 50m et un DAR < 30j.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la quantité maximale de MESOSTAR par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Tournesol respectant une ZNT de 50m et un DAR < 60j.",
+    "label": 1
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant tébuconazole et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le délai de rentrée pour CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Propose une alternative à BELEM 0,8 MG sans nicosulfuron.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant pendiméthaline et une autre molécule.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le délai de rentrée pour AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quel produit sur Tournesol permet de lutter contre Fusariose sans utiliser de florasulame ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le délai de rentrée pour MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Tournesol avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger BELEM 0,8 MG et CUTER pour traiter Rouille sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la dose du produit NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de AMISTAR par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Blé avec un DAR inférieur à 30 jours.",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Orge avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Rouille sur Tournesol compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à AMISTAR sans pendiméthaline.",
+    "label": 1
+  },
+  {
+    "query": "Puis-je mélanger CUTER et NEMO pour traiter Désherbage sur Blé ?",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Tournesol respectant une ZNT de 20m et un DAR < 60j.",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la quantité maximale de MESOSTAR par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Colza respectant une ZNT de 50m et un DAR < 48j.",
+    "label": 1
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre BELEM 0,8 MG et AMISTAR sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Quelles sont les substances actives de BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit KORIT 420 FS ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre SARACEN DELTA et MESOSTAR sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le délai de rentrée pour NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Oïdium sur Colza compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le DAR du produit CUTER sur Blé ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger BELEM 0,8 MG et SARACEN DELTA pour traiter Oïdium sur Colza ?",
+    "label": 1
+  },
+  {
+    "query": "Puis-je mélanger SARACEN DELTA et AMISTAR pour traiter Septoriose sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le délai de rentrée pour AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le numéro AMM de MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que BELEM 0,8 MG est autorisé sur Maïs ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que CUTER est autorisé sur Blé ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2080088.",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de SARACEN DELTA par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Puis-je mélanger SARACEN DELTA et MESOSTAR pour traiter Fusariose sur Maïs ?",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Tournesol permet de lutter contre Oïdium sans utiliser de mésotrione ?",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Blé avec un DAR inférieur à 30 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le délai de rentrée pour BELEM 0,8 MG ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que SARACEN DELTA est autorisé sur Orge ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que MESOSTAR est autorisé sur Tournesol ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de KORIT 420 FS par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le DAR du produit KORIT 420 FS sur Orge ?",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que AMISTAR est autorisé sur Tournesol ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la dose du produit NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Quelles sont les substances actives de NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le délai de rentrée pour AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Propose une alternative à SARACEN DELTA sans florasulame.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Fusariose sur Tournesol compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2080088.",
+    "label": 0
+  },
+  {
+    "query": "Est-ce que SARACEN DELTA est autorisé sur Orge ?",
+    "label": 0
+  },
+  {
+    "query": "Quelles sont les substances actives de AMISTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un traitement pour Tournesol respectant une ZNT de 5m et un DAR < 48j.",
+    "label": 1
+  },
+  {
+    "query": "Puis-je mélanger NEMO et AMISTAR pour traiter Fusariose sur Tournesol ?",
+    "label": 1
+  },
+  {
+    "query": "Quel est le délai de rentrée pour CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Quels sont les EPI requis pour appliquer MESOSTAR ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Septoriose sur Maïs compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Propose une alternative à BELEM 0,8 MG sans mésotrione.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de CUTER par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la différence entre MESOSTAR et BELEM 0,8 MG sur Orge ?",
+    "label": 1
+  },
+  {
+    "query": "Quelle est la quantité maximale de NEMO par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Donne-moi la fiche technique de l'AMM 2150432.",
+    "label": 0
+  },
+  {
+    "query": "Quelle est la quantité maximale de SARACEN DELTA par hectare ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le délai de rentrée pour NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Trouve un herbicide sur Orge avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Quel produit sur Blé permet de lutter contre Oïdium sans utiliser de pendiméthaline ?",
+    "label": 1
+  },
+  {
+    "query": "Trouve un herbicide sur Tournesol avec un DAR inférieur à 48 jours.",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Blé respectant une ZNT de 5m et un DAR < 48j.",
+    "label": 1
+  },
+  {
+    "query": "Quelles sont les substances actives de CUTER ?",
+    "label": 0
+  },
+  {
+    "query": "Quel est le délai de rentrée pour SARACEN DELTA ?",
+    "label": 0
+  },
+  {
+    "query": "Recommande un fongicide contre Fusariose sur Colza compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Recommande un fongicide contre Désherbage sur Orge compatible avec un délai de rentrée de 6 heures.",
+    "label": 1
+  },
+  {
+    "query": "Propose un traitement pour Tournesol respectant une ZNT de 50m et un DAR < 48j.",
+    "label": 1
+  },
+  {
+    "query": "Quel est le numéro AMM de NEMO ?",
+    "label": 0
+  },
+  {
+    "query": "Propose un programme de pulvérisation alternant pendiméthaline et une autre molécule.",
+    "label": 1
+  }
+]

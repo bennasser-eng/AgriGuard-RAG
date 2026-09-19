@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Qdrant local database
+data/qdrant_db/
+
+# Generated / local data
+data/raw/
+data/processed/
+*.bin
+*.pt
+*.pth
+
+# Logs
+*.log
+
+# OS
+.DS_Store

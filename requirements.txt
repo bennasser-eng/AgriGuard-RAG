@@ -1,0 +1,10 @@
+pandas
+requests
+joblib
+pydantic
+pytest
+scikit-learn
+qdrant-client 
+fastembed 
+sentence-transformers
+tqdm
