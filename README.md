@@ -1,11 +1,10 @@
 # AgriGuard-RAG
-AgriGuard-RAG is an enterprise-grade Retrieval-Augmented Generation (RAG) system designed to answer regulatory and technical queries regarding French agricultural phytosanitary products (E-Phy database).
+AgriGuard-RAG is a Retrieval-Augmented Generation (RAG) system designed to answer regulatory and technical queries regarding French agricultural phytosanitary products (E-Phy database).
 
 By combining an ultra-low **latency intention router**, **hybrid vector retrieval**, and **automated reasoning pipelines**, AgriGuard ensures **deterministic compliance verification** while **handling complex multi-constraint queries**.
 
 
 ## Architecture Overview
-
 The system follows a Router-Driven Architecture designed to optimize response latency, cost, and strict regulatory safety:
 
 ```text
@@ -14,7 +13,7 @@ The system follows a Router-Driven Architecture designed to optimize response la
      ▼
 ┌────────────────────────────────────────────────────────┐
 │              Intent Router (< 1 ms Latency)            │
-│  - Heuristic Engine (Regex / Multi-constraint Rules)   │
+│  - Heuristic Engine (Multi-constraint Rules)   │
 │  - ML Classifier (TF-IDF + Logistic Regression)        │
 └───────────────────────────┬────────────────────────────┘
                             │
@@ -55,16 +54,13 @@ The system follows a Router-Driven Architecture designed to optimize response la
 ### 3. Local Hybrid Vector Storage (Qdrant)
 * Embedded Vector Database: Embedded Qdrant instance running locally on disk (`data/qdrant_db/`) without external service requirements.
 * Dual Embeddings:
-* Dense: `BAAI/bge-small-en-v1.5` (384d) for semantic understanding.
+* Dense: `transformer_sentences/`  for semantic understanding.
 * Sparse: `Qdrant/bm25` for exact-match retrieval on regulatory IDs (AMM) and active substances.
 * Single-Stage Filtering: Native metadata indexes for instant filtering on crop types (`culture`) and withdrawal periods (`dar_jours`).
 
 
 
-
-
 ### Installation
-
 1. Clone the repository:
 ```bash
 git clone https://github.com/bennasser-eng/AgriGuard-RAG.git
