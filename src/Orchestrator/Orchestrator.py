@@ -30,7 +30,7 @@ class Orchestrator:
         retriever=None, 
         router=None, 
         model_simple: str = "llama-3.1-8b-instant", 
-        model_reasoning: str = "llama-3.3-70b-versatile"
+        model_reasoning: str =  "llama-3.1-8b-instant""
     ):
         self.retriever = retriever or HybridRetriever()
         self.router = router or IntentRouter()
