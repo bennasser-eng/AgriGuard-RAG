@@ -8,3 +8,4 @@ qdrant-client
 fastembed 
 sentence-transformers
 tqdm
+fastapi
