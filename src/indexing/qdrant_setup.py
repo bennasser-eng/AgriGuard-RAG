@@ -1,67 +1,73 @@
 """
-Script to set up a local Qdrant collection for storing and indexing Ephy documents.
-- The collection is configured with dense and sparse vector embeddings.
-- Metadata fields are indexed for filtering during search.
-This script is intended to be run once during the initial setup of the application.
+Script to set up and manage connections to the Qdrant vector database.
+Supports Qdrant Cloud (via Streamlit Secrets or Environment Variables) 
+with strict validation to prevent unindexed local fallback on cloud environments.
 """
 
+import os
 import warnings
-from pathlib import Path
+from typing import Optional
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
-
-import os
-from qdrant_client import QdrantClient
 
 COLLECTION_NAME = "ephy_documents"
 
 
-def get_qdrant_client():
-    # 1. Vérification dans st.secrets d'abord, puis os.environ
-    qdrant_url = None
-    qdrant_api_key = None
+def get_qdrant_client() -> QdrantClient:
+    """Instancie un client Qdrant Cloud ou local avec détection stricte des identifiants."""
+    qdrant_url: Optional[str] = None
+    qdrant_api_key: Optional[str] = None
 
+    # 1. Vérification dans Streamlit Secrets (en important le module de manière sécurisée)
     try:
-        qdrant_url = st.secrets.get("QDRANT_URL")
-        qdrant_api_key = st.secrets.get("QDRANT_API_KEY")
+        import streamlit as st
+        if hasattr(st, "secrets"):
+            qdrant_url = st.secrets.get("QDRANT_URL")
+            qdrant_api_key = st.secrets.get("QDRANT_API_KEY")
     except Exception:
         pass
 
+    # 2. Vérification dans les variables d'environnement (exécution locale / CLI)
     if not qdrant_url:
         qdrant_url = os.getenv("QDRANT_URL")
     if not qdrant_api_key:
         qdrant_api_key = os.getenv("QDRANT_API_KEY")
 
-    # 2. Connexion distante si les identifiants existent
+    # 3. Connexion à Qdrant Cloud si les paramètres sont définis
     if qdrant_url and qdrant_api_key:
         return QdrantClient(
-            url=qdrant_url,
-            api_key=qdrant_api_key,
-            timeout=60.0
+            url=qdrant_url.strip(),
+            api_key=qdrant_api_key.strip(),
+            timeout=120.0
         )
 
-    # 3. Fallback local (échouera sur Streamlit Cloud si le dossier n'est pas versionné)
+    # 4. Détection d'environnement Streamlit Cloud : interdiction du fallback local
+    is_streamlit_cloud = os.getenv("STREAMLIT_RUNTIME_ENV") is not None or os.path.exists("/mount/src")
+    if is_streamlit_cloud:
+        raise RuntimeError(
+            "Identifiants Qdrant Cloud manquants dans Streamlit Secrets (QDRANT_URL ou QDRANT_API_KEY non définis). "
+            "Le repli local est désactivé sur Streamlit Cloud pour éviter l'utilisation d'une base vide."
+        )
+
+    # 5. Fallback local pour développement offline uniquement
     return QdrantClient(path="./qdrant_data")
 
 
-
 def setup_qdrant_collection(client: QdrantClient, collection_name: str = COLLECTION_NAME):
-    """Sets up the Qdrant collection with dense and sparse vector configurations and metadata indexing."""
-    collections = [col.name for col in client.get_collections().collections]
-    if collection_name in collections:
-        print(f"[INFO] The collection '{collection_name}' exist yet {collection_name}.")
+    """Initialise la collection avec dense (384), sparse BM25 et index de métadonnées."""
+    existing_collections = [col.name for col in client.get_collections().collections]
+    if collection_name in existing_collections:
+        print(f"[INFO] La collection '{collection_name}' existe déjà.")
         return
 
-    print(f"[INIT] Creation of the collection '{collection_name}' localy...")
-
+    print(f"[INIT] Création de la collection '{collection_name}'...")
     client.create_collection(
         collection_name=collection_name,
         vectors_config={"dense": models.VectorParams(size=384, distance=models.Distance.COSINE)},
         sparse_vectors_config={"sparse": models.SparseVectorParams()}
     )
 
-    print("[INIT] Configuration of filters for metadata...")
-    
+    print("[INIT] Configuration des index de filtrage des métadonnées...")
     fields_to_index = [
         ("numero_amm", models.PayloadSchemaType.KEYWORD),
         ("culture", models.PayloadSchemaType.KEYWORD),
@@ -69,7 +75,6 @@ def setup_qdrant_collection(client: QdrantClient, collection_name: str = COLLECT
         ("dar_jours", models.PayloadSchemaType.INTEGER)
     ]
 
-    # Ignore the UserWarning specific to the local mode
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=UserWarning, module="qdrant_client")
         for field_name, schema_type in fields_to_index:
@@ -79,12 +84,12 @@ def setup_qdrant_collection(client: QdrantClient, collection_name: str = COLLECT
                 field_schema=schema_type,
             )
 
-    print(f"[OK] Collection '{collection_name}' initialized with success.")
+    print(f"[OK] Collection '{collection_name}' initialisée avec succès.")
 
 
 if __name__ == "__main__":
-    qdrant_cli = get_qdrant_client()
+    cli = get_qdrant_client()
     try:
-        setup_qdrant_collection(qdrant_cli)
+        setup_qdrant_collection(cli)
     finally:
-        qdrant_cli.close()
+        cli.close()
