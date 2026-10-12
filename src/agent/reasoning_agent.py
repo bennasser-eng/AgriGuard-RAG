@@ -38,7 +38,10 @@ Règles de conduite :
 
 
 class ReasoningAgent:
-    def __init__(self, retriever=None, model_name: str):
+    def __init__(self, retriever=None, model_name:str= ""):
+        if not model_name:
+            raise ValueError("ReasoningAgent requiert un 'model_name' valide fourni par l'Orchestrateur.")
+        
         self.retriever = retriever or HybridRetriever()
         self.model_name = model_name
 
