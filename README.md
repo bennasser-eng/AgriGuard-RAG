@@ -25,12 +25,12 @@ The system follows a Router-Driven Architecture designed to optimize response la
  ┌──────────────────────┐        ┌──────────────────────┐
  │ Hybrid Search RAG    │        │ Reasoning Agent      │
  │ - Dense (BGE-Small)  │        │ - ReAct / LangGraph  │
- │ - Sparse (BM25)      │        │ - Multi-step Tools   │
- │ - Qdrant Single-Stage│        └──────────────────────┘
- │   Metadata Filtering │
- └──────────┬───────────┘
-            │
-            ▼
+ │ - Sparse (BM25)      │        │ - Multi-step Tools   |
+ │ - Qdrant Single-Stage│        | - RAG reasoning agent|
+ │   Metadata Filtering │        |______________________|
+ └──────────┬───────────┘                   |
+            │                               |
+            ▼                               ▼ 
 ┌────────────────────────────────────────────────────────┐
 │              Regulatory Guardrail & Response           │
 └────────────────────────────────────────────────────────┘
@@ -120,6 +120,13 @@ python -m src.retrieval.hybrid_search
 * [x] Phase 1: Data Preparation & JSON Document Structuring
 * [x] Phase 2.1: Low-Latency Intent Router & ML Classifier
 * [x] Phase 2.2: Local Qdrant Indexing & Dual-Embedding Ingestion
-* [ ] Phase 2.3: Hybrid Search Engine API Integration (`src/retrieval/`)
-* [ ] Phase 3: Reasoning Agent for Complex Queries (LangGraph / ReAct)
+* [x] Phase 2.3: Hybrid Search Engine API Integration (`src/retrieval/`)
+* [x] Phase 3: Reasoning Agent for Complex Queries (LangGraph / ReAct)
 * [ ] Phase 4: Regulatory Guardrails & Evaluation Framework (Ragas)
+
+
+# Run the backend and frontend
+### frontend
+streamlit run frontend/main.py --server.fileWatcherType none
+### backend
+uvicorn backend.main:app --reload --port 8000
