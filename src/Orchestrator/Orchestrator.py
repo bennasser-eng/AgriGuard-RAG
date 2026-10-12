@@ -29,8 +29,8 @@ class Orchestrator:
         self, 
         retriever=None, 
         router=None, 
-        model_simple: str = "llama-3.1-8b-instant", 
-        model_reasoning: str =  "llama-3.1-8b-instant"
+        model_simple: str = "openai/gpt-oss-20b", 
+        model_reasoning: str = "openai/gpt-oss-120b"
     ):
         self.retriever = retriever or HybridRetriever()
         self.router = router or IntentRouter()
