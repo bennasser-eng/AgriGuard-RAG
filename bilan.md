@@ -51,3 +51,18 @@ python -m tests.test_router
 * repertoire app
 * repertoire src/validation
 
+
+
+# models de qroq:
+qwen/qwen3.8-27b
+openai/gpt-oss-safeguard-20b
+whisper-large-v3-turbo
+openai/gpt-oss-20b
+meta-llama/llama-prompt-guard-2-86m
+whisper-large-v3
+canopylabs/orpheus-arabic-saudi
+allam-2-7b
+meta-llama/llama-prompt-guard-2-22m
+openai/gpt-oss-120b
+canopylabs/orpheus-v1-english
+
