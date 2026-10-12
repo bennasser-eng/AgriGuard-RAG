@@ -37,78 +37,57 @@ class HybridRetriever:
 
 
     
-    def _rrf_fusion(self, dense_results, sparse_results, top_k: int = 5, k: int = 60):
-        """Fusion RRF manuelle compatible avec QdrantLocal."""
-        scores = {}
-        points_map = {}
-
-        # 1. Rangs de la recherche dense
-        for rank, point in enumerate(dense_results, start=1):
-            points_map[point.id] = point
-            scores[point.id] = scores.get(point.id, 0.0) + (1.0 / (k + rank))
-
-        # 2. Rangs de la recherche sparse (BM25)
-        for rank, point in enumerate(sparse_results, start=1):
-            points_map[point.id] = point
-            scores[point.id] = scores.get(point.id, 0.0) + (1.0 / (k + rank))
-
-        # 3. Tri décroissant par score RRF
-        sorted_ids = sorted(scores.keys(), key=lambda pid: scores[pid], reverse=True)[:top_k]
-        
-        return [(points_map[pid], scores[pid]) for pid in sorted_ids]
-
     def search(self, query: str, top_k: int = 5, culture: Optional[str] = None, numero_amm: Optional[str] = None, type_usage: Optional[str] = None) -> List[Dict[str, Any]]:
-        # Encodage dense
+        # Encodage dense et sparse
         query_dense_text = f"query: {query}"
         dense_vec = list(self.dense_model.embed([query_dense_text]))[0]
-
-        # Encodage sparse BM25
         sparse_vec = list(self.sparse_model.embed([query]))[0]
 
         query_filter = self._build_filter(culture=culture, numero_amm=numero_amm, type_usage=type_usage)
 
-        # 1. Requête dense standard (compatible local)
-        dense_hits = self.client.search(
-            collection_name=self.collection_name,
-            query_vector=("dense", dense_vec.tolist()),
-            query_filter=query_filter,
-            limit=top_k * 2
-        )
-
-        # 2. Requête sparse standard (compatible local)
-        sparse_hits = self.client.search(
-            collection_name=self.collection_name,
-            query_vector=models.NamedSparseVector(
-                name="sparse",
-                vector=models.SparseVector(
+        # Prefetch exécuté en parallèle côté cluster Qdrant
+        prefetch = [
+            models.Prefetch(
+                query=dense_vec.tolist(),
+                using="dense",
+                filter=query_filter,
+                limit=top_k * 2
+            ),
+            models.Prefetch(
+                query=models.SparseVector(
                     indices=sparse_vec.indices.tolist(),
                     values=sparse_vec.values.tolist()
-                )
-            ),
-            query_filter=query_filter,
-            limit=top_k * 2
+                ),
+                using="sparse",
+                filter=query_filter,
+                limit=top_k * 2
+            )
+        ]
+
+        # Fusion RRF native exécutée directement par Qdrant Cloud
+        results = self.client.query_points(
+            collection_name=self.collection_name,
+            prefetch=prefetch,
+            query=models.FusionQuery(fusion=models.Fusion.RRF),
+            limit=top_k
         )
 
-        # 3. Fusion RRF côté application
-        ranked_points = self._rrf_fusion(dense_hits, sparse_hits, top_k=top_k)
-
-        # 4. Formatage des résultats
         retrieved_docs = []
-        for point, rrf_score in ranked_points:
+        for point in results.points:
+            payload = point.payload or {}
             retrieved_docs.append({
                 "id": point.id,
-                "score": rrf_score,
-                "nom_produit": point.payload.get("nom_produit"),
-                "numero_amm": point.payload.get("numero_amm"),
-                "culture": point.payload.get("culture"),
-                "type_usage": point.payload.get("type_usage"),
-                "content": point.payload.get("content"),
-                "metadata": point.payload.get("metadata", {})
+                "score": point.score,
+                "nom_produit": payload.get("nom_produit"),
+                "numero_amm": payload.get("numero_amm"),
+                "culture": payload.get("culture"),
+                "type_usage": payload.get("type_usage"),
+                "content": payload.get("content"),
+                "metadata": payload.get("metadata", {})
             })
 
         return retrieved_docs
-
-
+        
 
     def close(self):
         if hasattr(self, 'client') and self.client is not None:

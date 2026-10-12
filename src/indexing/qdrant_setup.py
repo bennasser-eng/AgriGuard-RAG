@@ -10,21 +10,28 @@ from pathlib import Path
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 
+import os
+from qdrant_client import QdrantClient
+
 COLLECTION_NAME = "ephy_documents"
-DB_PATH = Path("data/qdrant_db")
+
+def get_qdrant_client():
+    qdrant_url = os.getenv("QDRANT_URL")
+    qdrant_api_key = os.getenv("QDRANT_API_KEY")
+
+    if qdrant_url and qdrant_api_key:
+        return QdrantClient(url=qdrant_url, api_key=qdrant_api_key, timeout=120.0)
+    # Fallback local au cas où
+    return QdrantClient(path="data/qdrant_data")
 
 
-def get_qdrant_client() -> QdrantClient:
-    """Returns a Qdrant client connected to the local database path."""
-    DB_PATH.mkdir(parents=True, exist_ok=True)
-    return QdrantClient(path=str(DB_PATH))
 
 
 def setup_qdrant_collection(client: QdrantClient, collection_name: str = COLLECTION_NAME):
     """Sets up the Qdrant collection with dense and sparse vector configurations and metadata indexing."""
     collections = [col.name for col in client.get_collections().collections]
     if collection_name in collections:
-        print(f"[INFO] The collection '{collection_name}' exist yet {DB_PATH}.")
+        print(f"[INFO] The collection '{collection_name}' exist yet {collection_name}.")
         return
 
     print(f"[INIT] Creation of the collection '{collection_name}' localy...")
@@ -54,7 +61,7 @@ def setup_qdrant_collection(client: QdrantClient, collection_name: str = COLLECT
                 field_schema=schema_type,
             )
 
-    print(f"[OK] Collection '{collection_name}' initialized with success in '{DB_PATH}'.")
+    print(f"[OK] Collection '{collection_name}' initialized with success.")
 
 
 if __name__ == "__main__":
