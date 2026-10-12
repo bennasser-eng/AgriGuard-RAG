@@ -15,15 +15,33 @@ from qdrant_client import QdrantClient
 
 COLLECTION_NAME = "ephy_documents"
 
+
 def get_qdrant_client():
-    qdrant_url = os.getenv("QDRANT_URL")
-    qdrant_api_key = os.getenv("QDRANT_API_KEY")
+    # 1. Vérification dans st.secrets d'abord, puis os.environ
+    qdrant_url = None
+    qdrant_api_key = None
 
+    try:
+        qdrant_url = st.secrets.get("QDRANT_URL")
+        qdrant_api_key = st.secrets.get("QDRANT_API_KEY")
+    except Exception:
+        pass
+
+    if not qdrant_url:
+        qdrant_url = os.getenv("QDRANT_URL")
+    if not qdrant_api_key:
+        qdrant_api_key = os.getenv("QDRANT_API_KEY")
+
+    # 2. Connexion distante si les identifiants existent
     if qdrant_url and qdrant_api_key:
-        return QdrantClient(url=qdrant_url, api_key=qdrant_api_key, timeout=120.0)
-    # Fallback local au cas où
-    return QdrantClient(path="data/qdrant_data")
+        return QdrantClient(
+            url=qdrant_url,
+            api_key=qdrant_api_key,
+            timeout=60.0
+        )
 
+    # 3. Fallback local (échouera sur Streamlit Cloud si le dossier n'est pas versionné)
+    return QdrantClient(path="./qdrant_data")
 
 
 
