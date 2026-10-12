@@ -1,15 +1,15 @@
 """
-Script to implement the Reasoning Agent for complex queries.
+Script to implement the Reasoning Agent for complex queries using Groq Cloud API.
 - Decomposes complex user queries into sub-queries.
 - Executes sub-queries via HybridRetriever.
-- Synthesizes findings using a larger/stronger LLM.
+- Synthesizes findings using a stronger LLM (e.g., Llama 3.3 70B).
 """
 
+import os
 import json
 from typing import List, Dict, Any
-import ollama
+from groq import Groq
 from src.retrieval.hybrid_search import HybridRetriever
-
 
 DECOMPOSITION_PROMPT = """Tu es un planificateur d'extraction d'information pour la réglementation phytosanitaire (E-Phy).
 Ta tâche est de décomposer une question complexe en un ensemble de 2 à 3 sous-questions simples et indépendantes qui permettront de chercher dans une base vectorielle.
@@ -38,44 +38,56 @@ Règles de conduite :
 
 
 class ReasoningAgent:
-    def __init__(self, retriever = None, model_name: str = "qwen2.5:7b"):
+    def __init__(self, retriever=None, model_name: str = "llama-3.3-70b-versatile"):
         self.retriever = retriever or HybridRetriever()
         self.model_name = model_name
 
+        # Résolution de la clé API (os.environ ou st.secrets)
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            try:
+                import streamlit as st
+                api_key = st.secrets.get("GROQ_API_KEY")
+            except Exception:
+                pass
+
+        if not api_key:
+            raise ValueError("GROQ_API_KEY introuvable pour ReasoningAgent.")
+
+        self.client = Groq(api_key=api_key)
+
     def _decompose_query(self, query: str) -> List[str]:
-        """Décompose one complex query into multiple simpler ones."""
+        """Décompose une question complexe en sous-questions simples via JSON mode."""
         try:
-            response = ollama.chat(
+            response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=[
                     {"role": "system", "content": DECOMPOSITION_PROMPT},
                     {"role": "user", "content": f"Question complexe : {query}"}
                 ],
-                format="json",     # Force the mode JSON under Ollama
-                keep_alive=0  # Décharge le modèle immédiatement
+                response_format={"type": "json_object"},
+                temperature=0.0
             )
-            data = json.loads(response["message"]["content"])
+            content = response.choices[0].message.content
+            data = json.loads(content)
             return data.get("sub_queries", [query])
         except Exception as e:
             print(f"[ReasoningAgent Warning] Échec de décomposition : {e}. Utilisation de la question brute.")
             return [query]
 
-
     def _deduplicate_docs(self, docs_list: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Dédoublonne documents retrieved by different sub-queries."""
+        """Dédoublonne les documents récupérés par les différentes sous-requêtes."""
         seen_ids = set()
         unique_docs = []
         for doc in docs_list:
-            # We use the Qdrant ID or a unique signature
             doc_id = doc.get("id") or f"{doc.get('numero_amm')}_{doc.get('culture')}"
             if doc_id not in seen_ids:
                 seen_ids.add(doc_id)
                 unique_docs.append(doc)
         return unique_docs
 
-
     def _format_context(self, docs: List[Dict[str, Any]]) -> str:
-        """Format the entire set of retrieved documents for the final prompt."""
+        """Formate l'ensemble des documents agrégés pour le prompt final."""
         if not docs:
             return "Aucun document trouvé."
 
@@ -90,14 +102,13 @@ class ReasoningAgent:
             )
         return "\n".join(formatted_chunks)
 
-
     def run(self, query: str, top_k_per_subquery: int = 2) -> Dict[str, Any]:
-        """Exécute the complex reasoning pipeline."""
+        """Exécute le pipeline de raisonnement multi-étapes."""
         
-        # Phase 1 : Décomposition of the query
+        # Phase 1 : Décomposition
         sub_queries = self._decompose_query(query)
         
-        # Phase 2 : Extraction multi-requests
+        # Phase 2 : Extraction multi-requêtes
         all_retrieved_docs = []
         for sub_q in sub_queries:
             docs = self.retriever.search(query=sub_q, top_k=top_k_per_subquery)
@@ -109,18 +120,20 @@ class ReasoningAgent:
         
         user_prompt = f"CONTEXTE AGRÉGÉ :\n{context_str}\n\nQUESTION COMPLEXE :\n{query}"
 
-        # Phase 4 : Synthèse par le LLM puissant
+        # Phase 4 : Synthèse par le LLM
         try:
-            response = ollama.chat(
+            response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=[
                     {"role": "system", "content": SYNTHESIS_PROMPT},
                     {"role": "user", "content": user_prompt}
-                ]
+                ],
+                temperature=0.1,
+                max_tokens=1500
             )
-            response_text = response["message"]["content"]
+            response_text = response.choices[0].message.content
         except Exception as e:
-            response_text = f"[Erreur ReasoningAgent] Échec de la génération : {e}"
+            response_text = f"[Erreur ReasoningAgent] Échec de la synthèse : {e}"
 
         return {
             "query": query,
@@ -129,7 +142,6 @@ class ReasoningAgent:
             "context_used": unique_docs,
             "formatted_prompt": user_prompt
         }
-
 
     def close(self):
         if hasattr(self, "retriever") and self.retriever:

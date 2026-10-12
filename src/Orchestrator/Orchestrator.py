@@ -1,20 +1,19 @@
 """
-Script to implement the full orchestrator.
-* The orchestrator is responsible for orchestrating the entire process of answering user queries.
-* Call the Intent Router to determine the intent of the query.
-* Call the Reasoning Agent to generate a response based on the intent or the RAG Agent to retrieve relevant documents and generate a response (if needed).
-* Then return the response to the user.
+Script to implement the full orchestrator using Groq Cloud API.
+- The orchestrator orchestrates answering user queries.
+- Intent Router -> Routing decision.
+- Simple RAG or Reasoning Agent -> Context formatting & Generation via Groq.
 """
 
+import os
 from typing import List, Dict, Any, Optional
-import ollama
+from groq import Groq
 
 from src.retrieval.hybrid_search import HybridRetriever
 from src.router.router import IntentRouter
 from src.agent.reasoning_agent import ReasoningAgent
 from src.router.schemas import QueryComplexity
 
-# Système Prompt to dell with hallucinations and ensure the agent strictly uses the provided documents for answering user queries.
 SYSTEM_PROMPT = """Tu es un assistant expert de la réglementation phytosanitaire française (données E-Phy).
 Ton rôle est de répondre aux questions des utilisateurs en t'appuyant STRICTEMENT sur les documents fournis en contexte.
 
@@ -26,15 +25,35 @@ Règles de conduite :
 """
 
 class Orchestrator:
-    def __init__(self, retriever=None, router=None, model_simple: str = "qwen2.5:3b", model_reasoning: str = "qwen2.5:3b"):
+    def __init__(
+        self, 
+        retriever=None, 
+        router=None, 
+        model_simple: str = "llama-3.1-8b-instant", 
+        model_reasoning: str = "llama-3.3-70b-versatile"
+    ):
         self.retriever = retriever or HybridRetriever()
         self.router = router or IntentRouter()
         self.model_simple = model_simple
         self.model_reasoning = model_reasoning
-        self.reasoning_agent = ReasoningAgent(retriever=self.retriever, model_name= self.model_reasoning)
+        
+        # Récupération de la clé API (gère os.environ et st.secrets)
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            try:
+                import streamlit as st
+                api_key = st.secrets.get("GROQ_API_KEY")
+            except Exception:
+                pass
+
+        if not api_key:
+            raise ValueError("GROQ_API_KEY introuvable. Définissez-la dans les variables d'environnement ou les secrets Streamlit.")
+
+        self.client = Groq(api_key=api_key)
+        self.reasoning_agent = ReasoningAgent(retriever=self.retriever, model_name=self.model_reasoning)
 
     def _format_context(self, docs: List[Dict[str, Any]]) -> str:
-        """Update the context with the relevant information from the retrieved documents."""
+        """Formate le contexte documentaire récupéré."""
         if not docs:
             return "Aucun document trouvé."
 
@@ -49,44 +68,49 @@ class Orchestrator:
             )
         return "\n".join(formatted_chunks)
 
-
-    def answer(self, query: str, top_k = 3, culture: Optional[str] = None, numero_amm = None, type_usage = None, use_llm: bool = True):
-        """Exécute the complete pipeline : Routing -> Retrieval -> Formatting -> LLM Generation."""
+    def answer(self, query: str, top_k: int = 3, culture: Optional[str] = None, numero_amm=None, type_usage=None, use_llm: bool = True):
+        """Pipeline complet : Routing -> Retrieval -> Formatting -> Inférence Groq."""
         
         # 1. Routing d'intention
         intent_router_decision = self.router.route(query=query)
         is_complex = getattr(intent_router_decision, "complexity", None) == QueryComplexity.COMPLEX
 
-        # Choice of the best pipeline
         if is_complex:
-            print(f"[RAG-Enhanced-Agent] Passage via an enhanced ReasoningAgent ({self.reasoning_agent.model_name})...")
+            print(f"[RAG-Enhanced-Agent] Passage via ReasoningAgent ({self.reasoning_agent.model_name})...")
             result = self.reasoning_agent.run(query=query, top_k_per_subquery=top_k)
             result["query_complexity"] = intent_router_decision.complexity
             return result
         else:
             print(f"[RAGAgent] Aiguillage RAG Simple ({self.model_simple})...")
-            # 2. Recherche hybride des documents
-            retrieved_docs = self.retriever.search(query=query, top_k=top_k, culture=culture,numero_amm=numero_amm, type_usage=type_usage)
+            # 2. Recherche hybride des fiches E-Phy
+            retrieved_docs = self.retriever.search(
+                query=query, 
+                top_k=top_k, 
+                culture=culture, 
+                numero_amm=numero_amm, 
+                type_usage=type_usage
+            )
 
-            # 3. Context's Formatting
+            # 3. Formatage du contexte
             context_str = self._format_context(retrieved_docs)
             user_prompt = f"CONTEXTE:\n{context_str}\n\nQUESTION:\n{query}"
 
-            # 4. Generation of the response with Ollama
+            # 4. Génération via API Groq
             response_text = ""
             if use_llm:
                 try:
-                    response = ollama.chat(
+                    chat_completion = self.client.chat.completions.create(
                         model=self.model_simple,
                         messages=[
                             {"role": "system", "content": SYSTEM_PROMPT},
                             {"role": "user", "content": user_prompt}
                         ],
-                        keep_alive=0  # Décharge le modèle immédiatement
+                        temperature=0.1,
+                        max_tokens=1024
                     )
-                    response_text = response["message"]["content"]
+                    response_text = chat_completion.choices[0].message.content
                 except Exception as e:
-                    response_text = f"[Erreur Ollama] Impossible de générer la réponse : {e}"
+                    response_text = f"[Erreur Groq] Échec de l'inférence : {e}"
             else:
                 response_text = "[Info] LLM désactivé. Le contexte a été préparé avec succès."
 
@@ -99,9 +123,6 @@ class Orchestrator:
                 "context_used": retrieved_docs
             }
 
-
     def close(self):
         if self.retriever:
             self.retriever.close()
-
-

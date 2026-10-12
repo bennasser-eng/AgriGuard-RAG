@@ -13,3 +13,4 @@ streamlit
 uvicorn
 requests
 pydantic
+groq
