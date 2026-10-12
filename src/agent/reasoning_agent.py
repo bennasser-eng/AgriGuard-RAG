@@ -38,7 +38,7 @@ Règles de conduite :
 
 
 class ReasoningAgent:
-    def __init__(self, retriever=None, model_name: str = "openai/gpt-oss-120b"):
+    def __init__(self, retriever=None, model_name: str):
         self.retriever = retriever or HybridRetriever()
         self.model_name = model_name
 

@@ -81,5 +81,5 @@ if prompt := st.chat_input("Posez votre question réglementaire (ex: Quels sont 
                 })
 
             except Exception as e:
-                error_msg = f"❌ Une erreur est survenue lors du traitement : {e}"
+                error_msg = f" Une erreur est survenue lors du traitement : {e}"
                 st.error(error_msg)
