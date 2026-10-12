@@ -9,3 +9,7 @@ fastembed
 sentence-transformers
 tqdm
 fastapi
+streamlit
+uvicorn
+requests
+pydantic
