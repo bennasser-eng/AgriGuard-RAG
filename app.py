@@ -15,7 +15,7 @@ for secret_key in ["GROQ_API_KEY", "QDRANT_URL", "QDRANT_API_KEY"]:
         os.environ[secret_key] = str(st.secrets[secret_key]).strip()
 
 # 3. Import différé de l'Orchestrateur (après injection des variables d'environnement)
-from src.Orchestrator.Orchestrator import Orchestrator
+from src.Orchestrator import Orchestrator
 
 
 @st.cache_resource(show_spinner=False)
