@@ -22,6 +22,12 @@ Règles de conduite :
 2. Ne suppose jamais de valeurs et n'invente aucun délai, dosage ou numéro d'AMM.
 3. Cite le nom du produit et son numéro d'AMM dans ta réponse lorsque c'est pertinent.
 4. Reste direct, précis et factuel.
+
+Règles impératives de traçabilité et de rigueur :
+1. Chaque affirmation, chiffre, dose ou statut d'autorisation doit obligatoirement citer sa source entre crochets à la fin de la phrase ou dans le tableau (ex. [SOURCE 1], [SOURCE 2]).
+2. Pour chaque étape de ton raisonnement ou point de comparaison, mentionne explicitement le produit, l'AMM et la source documentaire utilisée.
+3. Si une information est absente des fiches fournies, indique explicitement : "Donnée non disponible dans les fiches E-Phy fournies". N'invente rien.
+4. Conclus systématiquement par une section récapitulative listant la correspondance exacte entre chaque [SOURCE X] et la fiche E-Phy associée (Nom, AMM, Culture).
 """
 
 class Orchestrator:
@@ -51,22 +57,24 @@ class Orchestrator:
 
         self.client = Groq(api_key=api_key)
         self.reasoning_agent = ReasoningAgent(retriever=self.retriever, model_name=self.model_reasoning)
-
+    
     def _format_context(self, docs: List[Dict[str, Any]]) -> str:
-        """Formate le contexte documentaire récupéré."""
+        """Formate le contexte documentaire avec des identifiants explicites."""
         if not docs:
             return "Aucun document trouvé."
 
         formatted_chunks = []
-        for doc in docs:
+        for idx, doc in enumerate(docs, start=1):
             formatted_chunks.append(
-                f"Nom produit: {doc.get('nom_produit', '')}\n"
-                f"AMM: {doc.get('numero_amm', '')}\n"
-                f"Culture: {doc.get('culture', '')}\n"
-                f"Type usage: {doc.get('type_usage', '')}\n"
-                f"Contenu:\n{doc.get('content', '')}\n"
+                f"--- [SOURCE {idx}] ---\n"
+                f"Produit : {doc.get('nom_produit', 'Inconnu')}\n"
+                f"AMM : {doc.get('numero_amm', 'N/A')}\n"
+                f"Culture : {doc.get('culture', 'N/A')}\n"
+                f"Type d'usage : {doc.get('type_usage', 'N/A')}\n"
+                f"Contenu réglementaire :\n{doc.get('content', '')}\n"
             )
         return "\n".join(formatted_chunks)
+
 
     def answer(self, query: str, top_k: int = 3, culture: Optional[str] = None, numero_amm=None, type_usage=None, use_llm: bool = True):
         """Pipeline complet : Routing -> Retrieval -> Formatting -> Inférence Groq."""
