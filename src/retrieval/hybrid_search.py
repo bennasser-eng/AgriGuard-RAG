@@ -85,8 +85,16 @@ class HybridRetriever:
                 "content": payload.get("content"),
                 "metadata": payload.get("metadata", {})
             })
+        # Déduplication stricte par triplet unique
+        seen = set()
+        unique_docs = []
+        for doc in retrieved_docs:
+            key = (doc.get("numero_amm"), doc.get("culture"), doc.get("type_usage"))
+            if key not in seen:
+                seen.add(key)
+                unique_docs.append(doc)
 
-        return retrieved_docs
+        return unique_docs
         
 
     def close(self):
