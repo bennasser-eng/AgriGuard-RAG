@@ -35,8 +35,8 @@ class Orchestrator:
         self, 
         retriever=None, 
         router=None, 
-        model_simple: str = "openai/gpt-oss-20b", 
-        model_reasoning: str = "openai/gpt-oss-120b"
+        model_simple: str = "llama-3.1-8b-instant", 
+        model_reasoning: str = "llama-3.3-70b-versatile"
     ):
         self.retriever = retriever or HybridRetriever()
         self.router = router or IntentRouter()
@@ -75,7 +75,6 @@ class Orchestrator:
             )
         return "\n".join(formatted_chunks)
 
-
     def answer(self, query: str, top_k: int = 3, culture: Optional[str] = None, numero_amm=None, type_usage=None, use_llm: bool = True):
         """Pipeline complet : Routing -> Retrieval -> Formatting -> Inférence Groq."""
         
@@ -89,7 +88,7 @@ class Orchestrator:
 
             return {
                 "answer": result.get("answer") or result.get("response", ""),
-                "sources": result.get("sources", []),
+                "sources": result.get("sources") or result.get("context_used", []),
                 "query_complexity": "COMPLEX",
             }
         
@@ -129,7 +128,6 @@ class Orchestrator:
                 "sources": retrieved_docs,
                 "query_complexity": "SIMPLE",
             }
-        
 
     def close(self):
         if self.retriever:
