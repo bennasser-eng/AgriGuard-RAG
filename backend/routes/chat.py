@@ -1,3 +1,7 @@
+"""
+the chat: models + data retrieval + reasoning
+"""
+
 from typing import Any
 import traceback
 
@@ -7,8 +11,8 @@ from pydantic import BaseModel, Field
 from src.Orchestrator import Orchestrator
 
 
-router = APIRouter(tags=["chat"])
 
+router = APIRouter(tags=["chat"])
 
 class ChatMessage(BaseModel):
     role: str

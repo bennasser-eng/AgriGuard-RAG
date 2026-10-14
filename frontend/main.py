@@ -16,10 +16,11 @@ BACKEND_URL = os.getenv(
 
 st.set_page_config(
     page_title="Assistant agricole",
-    page_icon="🌾",
+    page_icon="background.png",
     layout="wide",
 )
 
+st.logo("background.png")
 
 st.title("🌾 Assistant agricole")
 st.caption(
@@ -36,7 +37,11 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+#st.button("Réinitialiser l'historique")
+if st.button("Réinitialiser l'historique"):
+    st.session_state.messages = []
 
+           
 question = st.chat_input(
     "Exemple : Comment traiter le mildiou de la tomate ?"
 )
@@ -94,6 +99,57 @@ if question:
                 sources = data.get("sources", [])
 
                 if sources:
+                    # rag ou agent est utilse
+                    if data.get("query_complexity") == "COMPLEX":
+                        with st.expander("📚 Sources utilisées"):
+                            for index, source in enumerate(
+                                sources,
+                                start=1,
+                            )
+                            # les questions intermidiaires sont affichees
+                            if source.get("intermediate_question"):
+                                st.markdown(
+                                    f"### Question {index}"
+                                )
+                                st.write(
+                                    source.get(
+                                        "intermediate_question",
+                                        "Question sans titre",
+                                    )
+                                )
+                                st.write(
+                                    source.get(
+                                        "intermediate_answer",
+                                        "Réponse sans titre",
+                                    )
+                                )
+                                st.write(
+                                    source.get("intermediate_sources", "")
+                                )
+                            else:
+                                st.markdown(
+                                    f"### Source {index}"
+                                )
+
+                                st.write(
+                                    source.get(
+                                        "title",
+                                        "Document sans titre",
+                                    )
+                                )
+
+                                if source.get("page"):
+                                    st.caption(
+                                        f"Page : {source['page']}"
+                                    )
+                                    st.write(
+                                        source.get("content", "")
+                                    )
+                                    st.write(
+                                        source.get("sources", "")
+                                    )
+
+                                
                     with st.expander("📚 Sources utilisées"):
                         for index, source in enumerate(
                             sources,
