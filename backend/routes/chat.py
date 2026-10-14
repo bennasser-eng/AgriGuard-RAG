@@ -25,6 +25,7 @@ class ChatRequest(BaseModel):
     filters: dict[str, Any] = Field(default_factory=dict)
 
 
+
 @router.post("/chat")
 async def chat(request: ChatRequest):
     try:
@@ -33,6 +34,10 @@ async def chat(request: ChatRequest):
         return {
             "answer": result["answer"],
             "sources": result.get("sources", []),
+            "query_complexity": result.get("query_complexity") 
+                                or result.get("complexity") 
+                                or result.get("route") 
+                                or "SIMPLE",
         }
 
     except Exception as error:
