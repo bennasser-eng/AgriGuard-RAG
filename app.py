@@ -60,8 +60,12 @@ if prompt := st.chat_input("Posez votre question réglementaire (ex: Quels sont 
         with st.spinner("Analyse réglementaire E-Phy en cours..."):
             try:
                 result = orchestrator.answer(query=prompt)
-                response_text = result.get("response", "Aucune réponse générée.")
-                sources = result.get("context_used", [])
+                
+                # Récupère 'answer' en priorité, puis 'response' en fallback
+                response_text = result.get("answer") or result.get("response") or "Aucune réponse générée."
+                
+                # Récupère 'sources' en priorité, puis 'context_used'
+                sources = result.get("sources") or result.get("context_used", [])
 
                 st.markdown(response_text)
 
