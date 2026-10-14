@@ -83,8 +83,17 @@ if question:
                 response.raise_for_status()
                 data = response.json()
 
-                answer = data["answer"]
+                answer = data.get("answer", "")
+                complexity = data.get("query_complexity", "SIMPLE")
+                sources = data.get("sources", [])
 
+                # 1. Affichage du mode d'exécution déclenché
+                if complexity == "COMPLEX":
+                    st.info("🤖 **Mode : Agent Raisonneur** (Décomposition en sous-requêtes)")
+                else:
+                    st.success("⚡ **Mode : RAG Direct** (Recherche vectorielle / hybride)")
+
+                # 2. Réponse principale
                 st.markdown(answer)
 
                 # Enregistrer la réponse dans l'historique
@@ -95,105 +104,42 @@ if question:
                     }
                 )
 
-                # Afficher les sources
-                sources = data.get("sources", [])
-
+                # 3. Affichage des questions intermédiaires (si Agent) ou des sources directes
                 if sources:
-                    # rag ou agent est utilse
-                    if data.get("query_complexity") == "COMPLEX":
-                        with st.expander("📚 Sources utilisées"):
-                            for index, source in enumerate(
-                                sources,
-                                start=1,
-                            )
-                            # les questions intermidiaires sont affichees
-                            if source.get("intermediate_question"):
-                                st.markdown(
-                                    f"### Question {index}"
-                                )
-                                st.write(
-                                    source.get(
-                                        "intermediate_question",
-                                        "Question sans titre",
-                                    )
-                                )
-                                st.write(
-                                    source.get(
-                                        "intermediate_answer",
-                                        "Réponse sans titre",
-                                    )
-                                )
-                                st.write(
-                                    source.get("intermediate_sources", "")
-                                )
-                            
+                    if complexity == "COMPLEX":
+                        with st.expander("🔍 Étapes de raisonnement & Questions intermédiaires de l'Agent", expanded=True):
+                            for index, step in enumerate(sources, start=1):
+                                q_inter = step.get("intermediate_question", f"Sous-requête {index}")
+                                a_inter = step.get("intermediate_answer", "Pas de réponse intermédiaire")
+                                s_inter = step.get("intermediate_sources", "")
+
+                                st.markdown(f"**Étape {index} :** `{q_inter}`")
+                                st.markdown(f"> **Observation / Synthèse :** {a_inter}")
+                                if s_inter:
+                                    st.caption(f"Sources consultées : {s_inter}")
+                                st.divider()
                     else:
-                        with st.expander("📚 Sources utilisées"):
-                            for index, source in enumerate(
-                                sources,
-                                start=1,
-                            ):
-                                st.markdown(
-                                    f"### Source {index}"
-                                )
+                        with st.expander("📚 Sources documentaires utilisées"):
+                            for index, source in enumerate(sources, start=1):
+                                title = source.get("title", f"Document {index}")
+                                page = source.get("page")
+                                content = source.get("content", "")
 
-                                st.write(
-                                    source.get(
-                                        "title",
-                                        "Document sans titre",
-                                    )
-                                )
-
-                                if source.get("page"):
-                                    st.caption(
-                                        f"Page : {source['page']}"
-                                    )
-
-                                st.write(
-                                    source.get("content", "")
-                                )            
-                    with st.expander("📚 Sources utilisées"):
-                        for index, source in enumerate(
-                            sources,
-                            start=1,
-                        ):
-                            st.markdown(
-                                f"### Source {index}"
-                            )
-
-                            st.write(
-                                source.get(
-                                    "title",
-                                    "Document sans titre",
-                                )
-                            )
-
-                            if source.get("page"):
-                                st.caption(
-                                    f"Page : {source['page']}"
-                                )
-
-                            st.write(
-                                source.get("content", "")
-                            )
+                                st.markdown(f"**{index}. {title}**")
+                                if page:
+                                    st.caption(f"Page / Fiche : {page}")
+                                if content:
+                                    st.text(content[:300] + ("..." if len(content) > 300 else ""))
 
             except requests.exceptions.ConnectionError:
-                st.error(
-                    "Impossible de contacter le backend. "
-                    "Vérifiez que FastAPI est lancé."
-                )
+                st.error("Impossible de contacter le backend. Vérifiez que FastAPI est lancé.")
 
             except requests.exceptions.Timeout:
-                st.error(
-                    "Le backend met trop de temps à répondre."
-                )
+                st.error("Le backend met trop de temps à répondre.")
 
             except requests.exceptions.RequestException as error:
-                st.error(
-                    f"Erreur HTTP : {error}"
-                )
+                st.error(f"Erreur HTTP : {error}")
 
             except KeyError:
-                st.error(
-                    "Le format de réponse du backend est incorrect."
-                )
+                st.error("Le format de réponse du backend est incorrect.")
+
