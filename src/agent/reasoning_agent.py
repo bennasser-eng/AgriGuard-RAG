@@ -12,10 +12,10 @@ from groq import Groq
 from src.retrieval.hybrid_search import HybridRetriever
 
 DECOMPOSITION_PROMPT = """Tu es un planificateur d'extraction d'information pour la réglementation phytosanitaire (E-Phy).
-Ta tâche est de décomposer une question complexe en 2 à 3 sous-questions simples et indépendantes.
+Ta tâche est de décomposer une question complexe en un ensemble de 2 à 3 sous-questions simples et indépendantes qui permettront de chercher dans une base vectorielle.
 
-Règles impératives :
-1. Chaque sous-question doit isoler UN SEUL produit ou UNE SEULE entité (ex: "usages et doses autorisées CHALLENGE 600", "usages et doses autorisées CARMINA MAX").
+Règles :
+1. Chaque sous-question doit chercher UNE SEULE information précise (ex: dosage, culture, délai, produit).
 2. Réponds UNIQUEMENT sous forme d'un objet JSON strict respectant ce schéma exact, sans aucun texte autour :
 
 {
@@ -38,7 +38,7 @@ Règles de conduite :
 
 
 class ReasoningAgent:
-    def __init__(self, retriever=None, model_name: str = ""):
+    def __init__(self, retriever=None, model_name:str= ""):
         if not model_name:
             raise ValueError("ReasoningAgent requiert un 'model_name' valide fourni par l'Orchestrateur.")
         
@@ -73,24 +73,19 @@ class ReasoningAgent:
             )
             content = response.choices[0].message.content
             data = json.loads(content)
-            sub_queries = data.get("sub_queries", [])
-            return sub_queries if sub_queries else [query]
+            return data.get("sub_queries", [query])
         except Exception as e:
             print(f"[ReasoningAgent Warning] Échec de décomposition : {e}. Utilisation de la question brute.")
             return [query]
 
     def _deduplicate_docs(self, docs_list: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Dédoublonne les documents sur la clé métier (AMM, Culture, Usage) plutôt que sur l'UUID Qdrant."""
-        seen_keys = set()
+        """Dédoublonne les documents récupérés par les différentes sous-requêtes."""
+        seen_ids = set()
         unique_docs = []
         for doc in docs_list:
-            key = (
-                str(doc.get("numero_amm", "")).strip(),
-                str(doc.get("culture", "")).strip().upper(),
-                str(doc.get("type_usage", "")).strip().lower()
-            )
-            if key not in seen_keys:
-                seen_keys.add(key)
+            doc_id = doc.get("id") or f"{doc.get('numero_amm')}_{doc.get('culture')}"
+            if doc_id not in seen_ids:
+                seen_ids.add(doc_id)
                 unique_docs.append(doc)
         return unique_docs
 
@@ -100,9 +95,8 @@ class ReasoningAgent:
             return "Aucun document trouvé."
 
         formatted_chunks = []
-        for idx, doc in enumerate(docs, start=1):
+        for doc in docs:
             formatted_chunks.append(
-                f"[Document {idx}]\n"
                 f"Nom produit: {doc.get('nom_produit', '')}\n"
                 f"AMM: {doc.get('numero_amm', '')}\n"
                 f"Culture: {doc.get('culture', '')}\n"
@@ -123,7 +117,7 @@ class ReasoningAgent:
             docs = self.retriever.search(query=sub_q, top_k=top_k_per_subquery)
             all_retrieved_docs.extend(docs)
 
-        # Phase 3 : Dédoublonnage métier & Formatage
+        # Phase 3 : Dédoublonnage & Formatage
         unique_docs = self._deduplicate_docs(all_retrieved_docs)
         context_str = self._format_context(unique_docs)
         
@@ -144,14 +138,11 @@ class ReasoningAgent:
         except Exception as e:
             response_text = f"[Erreur ReasoningAgent] Échec de la synthèse : {e}"
 
-        # Rétrocompatibilité totale des clés pour Orchestrator et Streamlit
         return {
             "query": query,
             "sub_queries": sub_queries,
             "response": response_text,
-            "answer": response_text,
             "context_used": unique_docs,
-            "sources": unique_docs,
             "formatted_prompt": user_prompt
         }
 
