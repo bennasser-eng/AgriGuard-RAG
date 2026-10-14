@@ -1,14 +1,3 @@
-Pour corriger ce fichier sans introduire d'effets secondaires, **trois interventions ciblées** sont nécessaires :
-
-1. **Régler le dédoublonnage factice (`_deduplicate_docs`)** : `doc.get("id")` existe toujours (UUID Qdrant), ce qui laissait passer les doublons textuels. Le dédoublonnage doit se baser sur le triplet métier `(numero_amm, culture, type_usage)`.
-2. **Harmoniser les clés de retour** : `Orchestrator` et Streamlit cherchent `answer` et `sources`. En ne renvoyant que `response` et `context_used`, le frontend recevait une valeur vide (*« Aucune réponse générée »*). On expose les deux formats simultanément.
-3. **Sécuriser la décomposition JSON** : forcer l'isolation par produit dans le prompt de décomposition pour éviter la dérive sémantique.
-
----
-
-### Code complet corrigé pour `src/agent/reasoning_agent.py`
-
-```python
 """
 Script to implement the Reasoning Agent for complex queries using Groq Cloud API.
 - Decomposes complex user queries into sub-queries.
@@ -169,5 +158,3 @@ class ReasoningAgent:
     def close(self):
         if hasattr(self, "retriever") and self.retriever:
             self.retriever.close()
-
-```
