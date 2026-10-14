@@ -126,7 +126,13 @@ if question:
                                 st.write(
                                     source.get("intermediate_sources", "")
                                 )
-                            else:
+                            
+                    else:
+                        with st.expander("📚 Sources utilisées"):
+                            for index, source in enumerate(
+                                sources,
+                                start=1,
+                            ):
                                 st.markdown(
                                     f"### Source {index}"
                                 )
@@ -142,14 +148,10 @@ if question:
                                     st.caption(
                                         f"Page : {source['page']}"
                                     )
-                                    st.write(
-                                        source.get("content", "")
-                                    )
-                                    st.write(
-                                        source.get("sources", "")
-                                    )
 
-                                
+                                st.write(
+                                    source.get("content", "")
+                                )            
                     with st.expander("📚 Sources utilisées"):
                         for index, source in enumerate(
                             sources,
