@@ -2,7 +2,7 @@
 Script to implement the Reasoning Agent for complex queries using Groq Cloud API.
 - Decomposes complex user queries into sub-queries.
 - Executes sub-queries via HybridRetriever.
-- Synthesizes findings using a stronger LLM (e.g., Llama 3.3 70B).
+- Synthesizes findings using a stronger LLM.
 """
 
 import os
@@ -12,11 +12,12 @@ from groq import Groq
 from src.retrieval.hybrid_search import HybridRetriever
 
 DECOMPOSITION_PROMPT = """Tu es un planificateur d'extraction d'information pour la réglementation phytosanitaire (E-Phy).
-Ta tâche est de décomposer une question complexe en un ensemble de 2 à 3 sous-questions simples et indépendantes qui permettront de chercher dans une base vectorielle.
+Ta tâche est de décomposer une question complexe en 2 ou 3 sous-questions simples et ciblées pour interroger un moteur de recherche hybride (mots-clés + sémantique).
 
-Règles :
-1. Chaque sous-question doit chercher UNE SEULE information précise (ex: dosage, culture, délai, produit).
-2. Réponds UNIQUEMENT sous forme d'un objet JSON strict respectant ce schéma exact, sans aucun texte autour :
+Règles impératives :
+1. Chaque sous-question doit isoler UN SEUL produit ou UNE SEULE entité avec l'information cherchée (ex: "usages et doses autorisées CHALLENGE 600", "usages et doses autorisées CARMINA MAX").
+2. N'inclus aucun mot superflu d'introduction.
+3. Réponds UNIQUEMENT sous forme d'un objet JSON strict respectant ce schéma exact, sans aucun texte autour :
 
 {
   "sub_queries": [
@@ -30,22 +31,21 @@ SYNTHESIS_PROMPT = """Tu es un assistant expert de la réglementation phytosanit
 Ton rôle est de répondre à une question complexe en analysant et combinant l'ensemble des documents fournis en contexte.
 
 Règles de conduite :
-1. Si l'information exacte pour répondre à la question globale ou à une des parties n'est pas présente dans les documents fournis, réponds explicitement ce qui manque.
+1. Si l'information exacte pour répondre à la question globale ou à une des parties n'est pas présente dans les documents fournis, mentionne explicitement ce qui manque.
 2. Ne suppose jamais de valeurs et n'invente aucun délai, dosage ou numéro d'AMM.
 3. Cite systématiquement le nom des produits et leurs numéros d'AMM.
-4. Explique clairement ton raisonnement étape par étape dans la réponse finale.
+4. Structure ta réponse étape par étape avec des sections ou tableaux clairs.
 """
 
 
 class ReasoningAgent:
-    def __init__(self, retriever=None, model_name:str= ""):
+    def __init__(self, retriever=None, model_name: str = ""):
         if not model_name:
             raise ValueError("ReasoningAgent requiert un 'model_name' valide fourni par l'Orchestrateur.")
         
         self.retriever = retriever or HybridRetriever()
         self.model_name = model_name
 
-        # Résolution de la clé API (os.environ ou st.secrets)
         api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
             try:
@@ -79,24 +79,30 @@ class ReasoningAgent:
             return [query]
 
     def _deduplicate_docs(self, docs_list: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Dédoublonne les documents récupérés par les différentes sous-requêtes."""
-        seen_ids = set()
+        """Dédoublonne strictement sur le triplet métier (AMM, Culture, Usage)."""
+        seen_keys = set()
         unique_docs = []
         for doc in docs_list:
-            doc_id = doc.get("id") or f"{doc.get('numero_amm')}_{doc.get('culture')}"
-            if doc_id not in seen_ids:
-                seen_ids.add(doc_id)
+            # Clé composite stable ignorant l'UUID Qdrant
+            key = (
+                str(doc.get("numero_amm", "")).strip(),
+                str(doc.get("culture", "")).strip().upper(),
+                str(doc.get("type_usage", "")).strip().lower()
+            )
+            if key not in seen_keys:
+                seen_keys.add(key)
                 unique_docs.append(doc)
         return unique_docs
 
     def _format_context(self, docs: List[Dict[str, Any]]) -> str:
-        """Formate l'ensemble des documents agrégés pour le prompt final."""
+        """Formate le contexte documentaire avec des identifiants de source clairs."""
         if not docs:
             return "Aucun document trouvé."
 
         formatted_chunks = []
-        for doc in docs:
+        for idx, doc in enumerate(docs, start=1):
             formatted_chunks.append(
+                f"[SOURCE {idx}]\n"
                 f"Nom produit: {doc.get('nom_produit', '')}\n"
                 f"AMM: {doc.get('numero_amm', '')}\n"
                 f"Culture: {doc.get('culture', '')}\n"
@@ -105,7 +111,7 @@ class ReasoningAgent:
             )
         return "\n".join(formatted_chunks)
 
-    def run(self, query: str, top_k_per_subquery: int = 2) -> Dict[str, Any]:
+    def run(self, query: str, top_k_per_subquery: int = 3) -> Dict[str, Any]:
         """Exécute le pipeline de raisonnement multi-étapes."""
         
         # Phase 1 : Décomposition
@@ -117,7 +123,7 @@ class ReasoningAgent:
             docs = self.retriever.search(query=sub_q, top_k=top_k_per_subquery)
             all_retrieved_docs.extend(docs)
 
-        # Phase 3 : Dédoublonnage & Formatage
+        # Phase 3 : Dédoublonnage sur triplet métier & Formatage
         unique_docs = self._deduplicate_docs(all_retrieved_docs)
         context_str = self._format_context(unique_docs)
         
@@ -138,10 +144,21 @@ class ReasoningAgent:
         except Exception as e:
             response_text = f"[Erreur ReasoningAgent] Échec de la synthèse : {e}"
 
+        # Formatage standardisé des sources pour l'Orchestrateur et le Frontend
+        formatted_sources = [
+            {
+                "title": f"{d.get('nom_produit', 'Produit')} (AMM: {d.get('numero_amm', 'N/A')}, Culture: {d.get('culture', 'N/A')})",
+                "content": d.get("content", ""),
+                "page": d.get("type_usage", "")
+            }
+            for d in unique_docs
+        ]
+
         return {
             "query": query,
             "sub_queries": sub_queries,
-            "response": response_text,
+            "answer": response_text,         # Normalisé sur "answer"
+            "sources": formatted_sources,    # Normalisé sur "sources"
             "context_used": unique_docs,
             "formatted_prompt": user_prompt
         }

@@ -64,12 +64,14 @@ class HybridRetriever:
             )
         ]
 
-        # Fusion RRF native exécutée directement par Qdrant Cloud
+        # 1. Demander un pool élargi à Qdrant (ex: 3 fois top_k, min 10)
+        fetch_limit = max(top_k * 3, 10)
+
         results = self.client.query_points(
             collection_name=self.collection_name,
             prefetch=prefetch,
             query=models.FusionQuery(fusion=models.Fusion.RRF),
-            limit=top_k
+            limit=fetch_limit  # On récupère assez de matière pour éliminer les doublons
         )
 
         retrieved_docs = []
@@ -85,7 +87,8 @@ class HybridRetriever:
                 "content": payload.get("content"),
                 "metadata": payload.get("metadata", {})
             })
-        # Déduplication stricte par triplet unique
+
+        # 2. Déduplication stricte par triplet unique
         seen = set()
         unique_docs = []
         for doc in retrieved_docs:
@@ -93,6 +96,10 @@ class HybridRetriever:
             if key not in seen:
                 seen.add(key)
                 unique_docs.append(doc)
+            
+            # 3. Arrêt dès qu'on a atteint le top_k de documents vraiment uniques
+            if len(unique_docs) >= top_k:
+                break
 
         return unique_docs
         
