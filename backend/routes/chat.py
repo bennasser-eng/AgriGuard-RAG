@@ -25,19 +25,17 @@ class ChatRequest(BaseModel):
     filters: dict[str, Any] = Field(default_factory=dict)
 
 
-
 @router.post("/chat")
 async def chat(request: ChatRequest):
     try:
-        result = await Orchestrator().answer(request.question)
+        # Orchestrator().answer() est synchrone : pas de await
+        result = Orchestrator().answer(request.question)
 
+        # Renvoyer systématiquement les 3 clés attendues par Streamlit
         return {
-            "answer": result["answer"],
+            "answer": result.get("answer", ""),
             "sources": result.get("sources", []),
-            "query_complexity": result.get("query_complexity") 
-                                or result.get("complexity") 
-                                or result.get("route") 
-                                or "SIMPLE",
+            "query_complexity": result.get("query_complexity", "SIMPLE"),
         }
 
     except Exception as error:

@@ -12,14 +12,20 @@ from typing import Optional
 from .schemas import QueryComplexity, RouterDecision
 
 class IntentRouter:
-   
+
     COMPLEX_KEYWORDS = [
-        "programme", "mélange", "compatibilité", "alterner", "sans", "alternative", "comparer", 
-        "différence", "compromis", "choisir entre", "efficacité relative"
+        # Verbes et variantes de comparaison
+        "comparer", "compare", "comparatif", "comparaison",
+        "différence", "différent", "différentes",
+        "la même", "le même", "les mêmes", "identique",
+        "versus", "vs", "choisir entre",
+        # Notions agronomiques complexes
+        "programme", "mélange", "compatibilité", "alterner", "alternance",
+        "sans", "alternative", "compromis", "efficacité relative"
     ]
 
-    # Regex to capture inequality constraints (ex: DAR < 30j, ZNT <= 5m, dose > 1.5 L/ha)
-    CONSTRAINT_REGEX = r'(<|>|<=|>=|=)\s*\d+(?:[\.,]\d+)?\s*(?:j|jours|m|mètres|l/ha|kg/ha|g/ha)?'
+    # Regex couvrant les symboles (<, >) ET les formulations textuelles (inférieur à, moins de...)
+    CONSTRAINT_REGEX = r'(?:<|>|<=|>=|=|inférieur à|supérieur à|moins de|plus de|strictement inférieur|strictement supérieur)\s*\d+(?:[\.,]\d+)?\s*(?:j|jours|m|mètres|l/ha|kg/ha|g/ha)?'
 
     def __init__(self, model_path: Optional[str] = "models/router_model.joblib"):
         self.model_path = model_path
@@ -44,7 +50,7 @@ class IntentRouter:
         matched_constraints = re.findall(self.CONSTRAINT_REGEX, query_lower)
 
         # If the query contains complex keywords or multiple inequality constraints -> COMPLEX
-        if matched_keywords or len(matched_constraints) >= 2:
+        if matched_keywords or len(matched_constraints) >= 1:
             reason = []
             if matched_keywords:
                 reason.append(f"Key words found: {matched_keywords}")

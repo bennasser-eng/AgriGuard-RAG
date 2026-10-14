@@ -78,11 +78,15 @@ class Orchestrator:
         if is_complex:
             print(f"[RAG-Enhanced-Agent] Passage via ReasoningAgent ({self.reasoning_agent.model_name})...")
             result = self.reasoning_agent.run(query=query, top_k_per_subquery=top_k)
-            result["query_complexity"] = intent_router_decision.complexity
-            return result
+
+            return {
+                "answer": result.get("answer") or result.get("response", ""),
+                "sources": result.get("sources", []),
+                "query_complexity": "COMPLEX",
+            }
+        
         else:
             print(f"[RAGAgent] Aiguillage RAG Simple ({self.model_simple})...")
-            # 2. Recherche hybride des fiches E-Phy
             retrieved_docs = self.retriever.search(
                 query=query, 
                 top_k=top_k, 
@@ -91,11 +95,9 @@ class Orchestrator:
                 type_usage=type_usage
             )
 
-            # 3. Formatage du contexte
             context_str = self._format_context(retrieved_docs)
             user_prompt = f"CONTEXTE:\n{context_str}\n\nQUESTION:\n{query}"
 
-            # 4. Génération via API Groq
             response_text = ""
             if use_llm:
                 try:
@@ -115,13 +117,11 @@ class Orchestrator:
                 response_text = "[Info] LLM désactivé. Le contexte a été préparé avec succès."
 
             return {
-                "query": query,
-                "response": response_text,
-                "formatted_prompt": user_prompt,
-                "query_complexity": getattr(intent_router_decision, "complexity", None),
-                "intent_router_decision": intent_router_decision,
-                "context_used": retrieved_docs
+                "answer": response_text,
+                "sources": retrieved_docs,
+                "query_complexity": "SIMPLE",
             }
+        
 
     def close(self):
         if self.retriever:
