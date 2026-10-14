@@ -43,7 +43,8 @@ if st.button("Réinitialiser l'historique"):
 
            
 question = st.chat_input(
-    "Exemple : Comment traiter le mildiou de la tomate ?"
+    "Exemple1 : Comment traiter le mildiou de la tomate ?",
+    "Exemple2 : Compare les usages autorisés et les doses retenues entre CHALLENGE 600 et CARMINA MAX."
 )
 
 
@@ -89,9 +90,9 @@ if question:
 
                 # 1. Affichage du mode d'exécution déclenché
                 if complexity == "COMPLEX":
-                    st.info("🤖 **Mode : Agent Raisonneur** (Décomposition en sous-requêtes)")
+                    st.info("**Mode : Agent Raisonneur** (Décomposition en sous-requêtes)")
                 else:
-                    st.success("⚡ **Mode : RAG Direct** (Recherche vectorielle / hybride)")
+                    st.success("**Mode : RAG Direct** (Recherche vectorielle / hybride)")
 
                 # 2. Réponse principale
                 st.markdown(answer)
@@ -107,7 +108,7 @@ if question:
                 # 3. Affichage des questions intermédiaires (si Agent) ou des sources directes
                 if sources:
                     if complexity == "COMPLEX":
-                        with st.expander("🔍 Étapes de raisonnement & Questions intermédiaires de l'Agent", expanded=True):
+                        with st.expander("Étapes de raisonnement & Questions intermédiaires de l'Agent", expanded=True):
                             for index, step in enumerate(sources, start=1):
                                 q_inter = step.get("intermediate_question", f"Sous-requête {index}")
                                 a_inter = step.get("intermediate_answer", "Pas de réponse intermédiaire")
