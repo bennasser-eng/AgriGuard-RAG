@@ -68,7 +68,7 @@ def render_sidebar():
         col1.metric("Requêtes", st.session_state.session_stats["total_queries"])
         col2.metric("Cache hits", st.session_state.session_stats["cache_hits"])
 
-        st.caption("Modèles : Llama 3.1 8B (Simple) | Llama 3.3 70B (Raisonnement)")
+        st.caption("Modèles : Llama 3.1 8B (Simple) || Llama 3.3 70B (Raisonnement)")
 
     return None if filter_culture == "Toutes" else filter_culture.lower()
 
