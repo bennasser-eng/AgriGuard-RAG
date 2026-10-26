@@ -75,7 +75,7 @@ class Orchestrator:
 
 
  
-    def answer(self, query: str, top_k: int = 3, culture: Optional[str] = None, numero_amm=None, type_usage=None, use_llm: bool = True):
+    def answer(self, query: str, top_k: int = 3, culture: Optional[str] = None, numero_amm=None, type_usage=None):
         """Pipeline: (Embediing de query -> Matching with Cache) -> Routing -> Retrieval -> Formatting -> Inférence Groq."""
 
         # we check if query matches a known intent in the cache (greetings, out_of_scope, etc.)(the cache is in semantic_cache_seeds.json)
@@ -112,7 +112,7 @@ class Orchestrator:
                 "Je suis désolé, je ne peux pas fournir d'informations sur ce sujet.",
                 "thought": None,
                 "sources": [],
-                "query_complexity": "HORS_CONTEXTE",
+                "query_complexity": "HORS_CONTEXT",
             }
 
 

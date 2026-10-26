@@ -33,7 +33,7 @@ class SemanticCache:
             data = json.load(f)
 
         for entry in data:
-            intent = entry.get("intent", "HORS_CONTEXTE")
+            intent = entry.get("intent", "HORS_CONTEXT")
             response = entry.get("response", "")
             for q in entry.get("queries", []):
                 self.queries.append(q)

@@ -108,7 +108,7 @@ def render_message(msg: Dict[str, Any]):
         complexity = msg.get("query_complexity")
         if complexity and role == "assistant":
             badge_color = {
-                "HORS_CONTEXTE": "gray",
+                "HORS_CONTEXT": "gray",
                 "SIMPLE": "blue",
                 "COMPLEX": "orange"
             }.get(complexity, "blue")
@@ -170,7 +170,7 @@ if user_input:
 
                 # Mise à jour des métriques
                 st.session_state.session_stats["total_queries"] += 1
-                if complexity == "HORS_CONTEXTE":
+                if complexity == "HORS_CONTEXT":
                     st.session_state.session_stats["cache_hits"] += 1
 
                 # Préparation du payload de stockage
