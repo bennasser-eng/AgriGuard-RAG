@@ -110,6 +110,7 @@ class Orchestrator:
                 print(f"[LLM] Passage via LLM without augmented context ({self.model_simple})...")
                 # we use llm without augmented context  
                 result = ""
+                retrieved_docs = []
 
             else:
                 print(f"[RAGAgent] Aiguillage RAG Simple ({self.model_simple})...")
