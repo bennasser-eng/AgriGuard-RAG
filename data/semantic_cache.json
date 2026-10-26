@@ -4,7 +4,10 @@
     "response": "Bonjour ! Je suis AgriGuard, votre assistant technique sur la réglementation phytosanitaire (données officielles E-Phy). Quelle spécialité, culture ou usage souhaitez-vous vérifier ?",
     "queries": [
       "Bonjour",
-      "Salut",
+      "ca va",
+      "comment ça va",
+      "salut",
+      "bonsoir",
       "Coucou AgriGuard",
       "Bonjour, tu es là ?",
       "Hello, j'ai une question",
