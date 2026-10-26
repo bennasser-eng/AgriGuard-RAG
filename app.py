@@ -90,7 +90,7 @@ def render_welcome_screen():
         ("🍇 Fongicide Vigne", "Quels sont les fongicides homologués sur mildiou de la vigne avec un DAR inférieur à 14 jours ?"),
         ("🌾 Comparaison Blé", "Compare le produit A et le produit B sur blé tendre : doses maximales et ZNT."),
         ("⚠️ Sécurité Mélange", "Est-il permis d'associer un herbicide sulfonylurée avec un insecticide pyréthrinoïde ?"),
-        ("🛡️ Recherche AMM", "Quelles sont les restrictions d'usage pour le produit sous le numéro d'AMM 2110150 ?")
+        ("🛡️ Recherche AMM", "Quelles sont les restrictions d'usage pour le produit sous le numéro d'AMM 2210950 ?")
     ]
 
     for idx, (label, query_text) in enumerate(prompts):
@@ -116,7 +116,7 @@ def render_message(msg: Dict[str, Any]):
 
         # Raisonnement intermédiaire (Thought)
         if msg.get("thought"):
-            with st.expander("🧠 Décomposition & Diagnostic réglementaire", expanded=False):
+            with st.expander("🧠 Reflexion intermédiaire", expanded=False):
                 st.markdown(msg["thought"])
 
         # Corps de la réponse
