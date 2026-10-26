@@ -68,7 +68,7 @@ def render_sidebar():
         col1.metric("Requêtes", st.session_state.session_stats["total_queries"])
         col2.metric("Cache hits", st.session_state.session_stats["cache_hits"])
 
-        st.caption("Modèles : Llama 3.1 8B (Simple) || Llama 3.3 70B (Raisonnement)")
+        st.caption("Modèles : openai/gpt-oss-20b || openai/gpt-oss-120b (Raisonnement)")
 
     return None if filter_culture == "Toutes" else filter_culture.lower()
 
@@ -164,9 +164,9 @@ if user_input:
                 )
 
                 answer_text = result.get("answer") or "Information introuvable dans la base documentaire."
-                thought_text = result.get("thought")
+                thought_text = result.get("thought") or ""
                 sources_list = result.get("sources", [])
-                complexity = result.get("query_complexity", "SIMPLE")
+                complexity = result.get("query_complexity", "HORS_CONTEXT")
 
                 # Mise à jour des métriques
                 st.session_state.session_stats["total_queries"] += 1

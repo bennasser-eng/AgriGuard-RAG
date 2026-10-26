@@ -164,9 +164,9 @@ class ReasoningAgent:
 
         return {
             "query": query,
-            "thought_decomposition": thoughts_decomposition,
+            "thought": thoughts_decomposition,
             "sub_queries": sub_queries,
-            "response": response_text,
+            "answer": response_text,
             "sources": unique_docs,
         }
 

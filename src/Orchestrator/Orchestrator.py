@@ -98,10 +98,10 @@ class Orchestrator:
             result = self.reasoning_agent.run(query=query, top_k_per_subquery=top_k)
 
             return {
-                "answer": result.get("response", ""),
+                "answer": result.get("answer", ""),
                 "sources": result.get("sources", []) ,
                 "sub_queries": result.get("sub_queries", []),
-                "Thought_Decomposition": result.get("thought_decomposition", ""),
+                "thought": result.get("thought", ""),
                 "query_complexity": "COMPLEX",
             }
 
