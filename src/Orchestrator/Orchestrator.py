@@ -104,48 +104,60 @@ class Orchestrator:
                 "Thought_Decomposition": result.get("thought_decomposition", ""),
                 "query_complexity": "COMPLEX",
             }
+
         
-        else: # Either simple query or hors_context query
-            if is_hors_context:
-                print(f"[LLM] Passage via LLM without augmented context ({self.model_simple})...")
-                # we use llm without augmented context  
-                result = ""
-                retrieved_docs = []
-
-            else:
-                print(f"[RAGAgent] Aiguillage RAG Simple ({self.model_simple})...")
-                retrieved_docs = self.retriever.search(query=query, top_k=top_k, culture=culture, numero_amm=numero_amm, type_usage=type_usage)
-
-            # Format context for both simple and hors_context queries
-            context_str = self._format_context(retrieved_docs)
-            user_prompt = f"CONTEXTE:\n{context_str}\n\nQUESTION:\n{query}"
-
-            response_text = ""
-            if use_llm:
-                try:
-                    chat_completion = self.client.chat.completions.create(
-                        model=self.model_simple,
-                        messages=[
-                            {"role": "system", "content": SYSTEM_PROMPT},
-                            {"role": "user", "content": user_prompt}
-                        ],
-                        temperature=0.1, max_tokens=1024
-                    )
-                
-                    response_text = chat_completion.choices[0].message.content
-                except Exception as e:
-                    response_text = f"[Erreur Groq] Échec de l'inférence : {e}"
-            else:
-                response_text = "[Info] LLM désactivé. Le contexte a été préparé avec succès."
-
+        elif is_hors_context:
             return {
-                "answer": response_text,
-                "sources": retrieved_docs,
-                "query_complexity": "HORS_CONTEXT" if is_hors_context else "SIMPLE",
+                "answer": "Cette question sort du périmètre réglementaire phytosanitaire officiel (données E-Phy/ANSES)."
+                "Je suis désolé, je ne peux pas fournir d'informations sur ce sujet.",
+                "thought": None,
+                "sources": [],
+                "query_complexity": "HORS_CONTEXTE",
             }
 
 
+        else:
+            # Branche RAG Simple
+            print(f"[RAGAgent] Aiguillage RAG Simple ({self.model_simple})...")
+            try:
+                retrieved_docs = self.retriever.search(
+                    query=query, 
+                    top_k=top_k, 
+                    culture=culture, 
+                    numero_amm=numero_amm, 
+                    type_usage=type_usage
+                )
+            except Exception as e:
+                print(f"[RAGAgent Warning] Échec recherche retriever : {e}")
+                retrieved_docs = []
+
+            context_str = self._format_context(retrieved_docs)
+            user_prompt = f"CONTEXTE:\n{context_str}\n\nQUESTION:\n{query}"
+
+            try:
+                chat_completion = self.client.chat.completions.create(
+                    model=self.model_simple,
+                    messages=[
+                        {"role": "system", "content": SYSTEM_PROMPT},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.0,
+                    max_tokens=1024
+                )
+                response_text = chat_completion.choices[0].message.content
+            except Exception as e:
+                response_text = f"[Erreur Groq] Échec de l'inférence : {e}"
+
+            return {
+                "answer": response_text,
+                "thought": None,
+                "sources": retrieved_docs,
+                "query_complexity": "SIMPLE",
+            }
 
     def close(self):
-        if self.retriever:
+        """Ferme les connexions actives sans lever d'exception si non implémenté."""
+        if hasattr(self, "retriever") and self.retriever and hasattr(self.retriever, "close"):
             self.retriever.close()
+        if hasattr(self, "reasoning_agent") and self.reasoning_agent and hasattr(self.reasoning_agent, "close"):
+            self.reasoning_agent.close()
