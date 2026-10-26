@@ -32,7 +32,7 @@ Règles impératives de traçabilité et de rigueur :
 
 class Orchestrator:
     def __init__(self, cache = None, retriever=None, router=None, 
-        model_simple: str = "llama-3.1-8b-instant", model_reasoning: str = "llama-3.3-70b-versatile"
+        model_simple: str = "llama-3.1-8b-instant", model_reasoning: str = "openai/gpt-oss-120b"
     ):
         self.cache = cache or SemanticCache()
         self.retriever = retriever or HybridRetriever()
