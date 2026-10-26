@@ -24,3 +24,5 @@ data/processed/
 
 # OS
 .DS_Store
+
+.config

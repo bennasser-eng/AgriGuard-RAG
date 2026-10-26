@@ -1,0 +1,17 @@
+# Before optimization
+
+ 1. PERFORMANCE DU ROUTEUR
+==================================================
+Accuracy Globale        : 86.27% (44/51)
+- Précision [SIMPLE    ] : 96.9% (31/32)
+- Précision [COMPLEXE  ] : 81.2% (13/16)
+- Précision [SALUTATION] : 0.0% (0/3)
+
+
+ 2. PERFORMANCE DU RETRIEVAL QDRANT (k=5)
+==================================================
+Hit Rate@5             : 43.75%
+Recall@5               : 32.81%
+Precision@5            : 13.75%
+MRR@5                  : 0.334
+Latence moyenne         : 513.5 ms

@@ -1,5 +1,5 @@
 """
-Script to train the intent routing classifier to distinguish between SIMPLE and COMPLEX queries.
+Script to train the intent routing classifier to distinguish between HORS_CONTEXT, SIMPLE and COMPLEX queries.
 - The training data is expected in 'data/router_training_data.json'.
 - The trained model will be saved in 'models/router_model.joblib'. 
 We use a simple TF-IDF + Logistic Regression pipeline for this task.
@@ -53,7 +53,7 @@ def train():
     y_pred = pipeline.predict(X_test)
 
     print("\n=== Performance of the routing model ===")
-    print(classification_report(y_test, y_pred, target_names=["SIMPLE", "COMPLEXE"]))
+    print(classification_report(y_test, y_pred, target_names=["HORS_CONTEXT", "SIMPLE", "COMPLEXE"]))
     
     print("=== CONFUSION MATRIX ===")
     print(confusion_matrix(y_test, y_pred))

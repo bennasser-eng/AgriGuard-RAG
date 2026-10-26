@@ -130,3 +130,19 @@ python -m src.retrieval.hybrid_search
 streamlit run frontend/main.py --server.fileWatcherType none
 ### backend
 uvicorn backend.main:app --reload --port 8000
+
+
+
+# Phase d'optimisation 
+## Optimisation du routeur
+* Ajout de classe HORS_CONTEXT
+* Train the router model (100% accuracy)
+* Test the router model (100% accuracy)
+* tests.test_router.py -> 100% ok
+
+## Optimisation de l'Orchestrateur
+* Ajout de classe HORS_CONTEXT
+
+## Optimisation de la raisonnement agent
+* Ajout de thoughts pour la decomposition des questions complexes (sera afficher)
+* Ajout de thoughts pour la synthèse finale

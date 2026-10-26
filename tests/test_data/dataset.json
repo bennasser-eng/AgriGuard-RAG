@@ -1,0 +1,570 @@
+[
+  {
+    "question": "Quelle est la dose retenue pour le produit NEMO sur le maïs en désherbage, et quel est le délai de rentrée indiqué ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "La dose retenue est de 1.5 L/ha et le délai de rentrée est de 48 heures.",
+    "expected_doc_ids": [
+      "0"
+    ],
+    "expected_amm": [
+      "2080088"
+    ]
+  },
+  {
+    "question": "Entre les produits NEMO et SARACEN DELTA, lequel a la dose retenue la plus faible pour le désherbage, et quelles sont les cultures cibles de chacun ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "SARACEN DELTA a la dose la plus faible (0.075 L/ha) contre NEMO (1.5 L/ha). NEMO est destiné au maïs, SARACEN DELTA à l'orge.",
+    "expected_doc_ids": [
+      "0",
+      "2"
+    ],
+    "expected_amm": [
+      "2080088",
+      "2190312"
+    ]
+  },
+  {
+    "question": "Quelle dose de NEMO est recommandée pour le blé en traitement des maladies fongiques ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit BELEM 0,8 MG sur le maïs doux en traitement du sol, et quelle protection de l'opérateur est recommandée ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "Dose retenue : 12.0 kg/ha. Protection de l'opérateur : porter des gants appropriés pendant les opérations de mélange/chargement.",
+    "expected_doc_ids": [
+      "14"
+    ],
+    "expected_amm": [
+      "2090050"
+    ]
+  },
+  {
+    "question": "Comparez la dose retenue et les cultures d'application autorisées entre le produit BELEM 0,8 MG et le produit KORIT 420 FS. Lequel des deux convient pour un traitement du sol du maïs doux ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "BELEM 0,8 MG : dose retenue 12.0 kg/ha, culture maïs doux, usage traitement du sol. KORIT 420 FS : dose retenue 0.6 L/q, culture maïs, usage traitement semence et répulsif corbeaux. Ainsi, seul BELEM 0,8 MG est adapté au traitement du sol du maïs doux.",
+    "expected_doc_ids": [
+      "14",
+      "17"
+    ],
+    "expected_amm": [
+      "2090050",
+      "2120041"
+    ]
+  },
+  {
+    "question": "Quelle dose doit-on appliquer du produit BELEM 0,8 MG pour lutter contre le mildiou sur la vigne ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit TYRAN sur le blé et quel est le délai de rentrée indiqué ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "Dose retenue : 2.0 L/ha ; Délai de rentrée : 6 heures.",
+    "expected_doc_ids": [
+      "18"
+    ],
+    "expected_amm": [
+      "9400336"
+    ]
+  },
+  {
+    "question": "Comparer les doses retenues des produits TYRAN (blé) et CUTER (maïs doux) et indiquer lequel des deux comporte des exigences de protection de l'opérateur.",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "TYRAN : dose 2.0 L/ha, aucune exigence de protection de l'opérateur mentionnée. CUTER : dose 0.75 L/ha, exigences de protection de l'opérateur détaillées (gants, EPI, lunettes, etc.).",
+    "expected_doc_ids": [
+      "18",
+      "24"
+    ],
+    "expected_amm": [
+      "9400336",
+      "2220646"
+    ]
+  },
+  {
+    "question": "Quelle dose du produit TYRAN est recommandée pour la culture de la vigne contre le mildiou ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le désherbage de l'orge avec le produit ALOHA ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "0.03 kg/ha",
+    "expected_doc_ids": [
+      "62"
+    ],
+    "expected_amm": [
+      "2190396"
+    ]
+  },
+  {
+    "question": "En comparant les deux produits autorisés pour le désherbage, ALOHA et MESOSTAR, quelle différence observe‑t‑on au niveau de la dose retenue et du délai de rentrée ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "ALOHA a une dose de 0.03 kg/ha et un délai de rentrée de - 6 heures, alors que MESOSTAR a une dose de 0.75 L/ha et un délai de rentrée de - 48 heures ; MESOSTAR présente donc une dose et un délai de rentrée plus élevés.",
+    "expected_doc_ids": [
+      "62",
+      "64"
+    ],
+    "expected_amm": [
+      "2190396",
+      "2150084"
+    ]
+  },
+  {
+    "question": "Quelle dose d'ALOHA est recommandée pour le traitement du mildiou du blé ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue du produit KIDEKA pour le maïs en désherbage ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "1.5 L/ha",
+    "expected_doc_ids": [
+      "70"
+    ],
+    "expected_amm": [
+      "2170360"
+    ]
+  },
+  {
+    "question": "Comparez les doses retenues des produits KIDEKA et QUICK 5% EC pour leurs cultures respectives et indiquez quelle différence il y a entre les deux.",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "KIDEKA : 1.5 L/ha (maïs, désherbage). QUICK 5% EC : 3.0 L/ha (tournesol, désherbage). La différence de dose est de 1.5 L/ha, le produit QUICK 5% EC nécessitant le double de la dose de KIDEKA.",
+    "expected_doc_ids": [
+      "70",
+      "82"
+    ],
+    "expected_amm": [
+      "2170360",
+      "2140099"
+    ]
+  },
+  {
+    "question": "Quel est le délai avant récolte recommandé pour le traitement du blé contre la rouille avec le produit KIDEKA ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit OLORIM WG en maïs désherbage, quel est le délai de rentrée indiqué, et le délai avant récolte (DAR) ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "La dose retenue est de 0.06 kg/ha, le délai de rentrée est de - 6 heures, et aucun délai avant récolte n’est renseigné (non applicable).",
+    "expected_doc_ids": [
+      "84"
+    ],
+    "expected_amm": [
+      "2150020"
+    ]
+  },
+  {
+    "question": "Comparer les doses retenues et les exigences de protection de l’opérateur entre les produits OLORIM WG et BACKPACK pour le désherbage du maïs. Lequel nécessite une protection plus stricte ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "OLORIM WG a une dose de 0.06 kg/ha et ne précise qu’un délai de rentrée de - 6 heures, sans exigences spécifiques de protection. BACKPACK a une dose de 1.2 L/ha et impose de nombreux équipements de protection (gants nitrile, EPI vestimentaire, demi‑masque filtrant, etc.). Ainsi, BACKPACK nécessite une protection de l’opérateur plus stricte que OLORIM WG.",
+    "expected_doc_ids": [
+      "84",
+      "86"
+    ],
+    "expected_amm": [
+      "2150020",
+      "2150845"
+    ]
+  },
+  {
+    "question": "Quel est le délai d’attente avant la récolte pour le traitement du blé avec le produit BACKPACK ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit GLOBUS sur la culture orge, et quel est le délai de rentrée indiqué?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "La dose retenue pour GLOBUS sur orge est de 0.08 L/ha ; le délai de rentrée indiqué est de 6 heures (pas de DAR renseigné).",
+    "expected_doc_ids": [
+      "98"
+    ],
+    "expected_amm": [
+      "2150870"
+    ]
+  },
+  {
+    "question": "Comparativement, quelle est la différence de dose entre les produits GLOBUS et COMPLEXUGEC pour la désherbage de l'orge, et quel produit a le délai de rentrée le plus court?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "GLOBUS a une dose retenue de 0.08 L/ha alors que COMPLEXUGEC a une dose de 1.3 L/ha, soit une différence de 1.22 L/ha en faveur de COMPLEXUGEC. Le délai de rentrée le plus court est celui de GLOBUS (6 heures) comparé à 24 heures pour COMPLEXUGEC.",
+    "expected_doc_ids": [
+      "98",
+      "112"
+    ],
+    "expected_amm": [
+      "2150870",
+      "6600501"
+    ]
+  },
+  {
+    "question": "Quelle est la dose recommandée du produit GLOBUS pour la culture blé en cas de maladie fusarium?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit SARACEN en culture d'orge, et quelles sont les conditions d'application spécifiées ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "La dose retenue pour SARACEN est de 80.0 mL/ha ; aucun délai avant récolte (DAR) n’est indiqué et le délai de rentrée est de 6 heures.",
+    "expected_doc_ids": [
+      "120"
+    ],
+    "expected_amm": [
+      "2140002"
+    ]
+  },
+  {
+    "question": "Quel produit entre SARACEN et RACER ME nécessite une dose plus élevée en L/ha pour la désherbage, et quelles sont les cultures ciblées respectives ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "RACER ME nécessite une dose plus élevée (3.0 L/ha) comparée à SARACEN (0.08 L/ha). SARACEN est destiné à la culture d’orge, tandis que RACER ME est destiné au tournesol.",
+    "expected_doc_ids": [
+      "120",
+      "134"
+    ],
+    "expected_amm": [
+      "2140002",
+      "8700020"
+    ]
+  },
+  {
+    "question": "Quelle est la dose recommandée du produit SARACEN pour la culture du blé face au mildiou ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit MADISON ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "1.0 L/ha",
+    "expected_doc_ids": [
+      "136"
+    ],
+    "expected_amm": [
+      "2100057"
+    ]
+  },
+  {
+    "question": "Comment les doses recommandées diffèrent‑elles entre le produit MADISON (orge) et le produit MYCOSTOP (maïs doux) ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "MADISON est appliqué à une dose de 1.0 L/ha, alors que MYCOSTOP est appliqué à une dose de 8.0 g/kg.",
+    "expected_doc_ids": [
+      "136",
+      "160"
+    ],
+    "expected_amm": [
+      "2100057",
+      "2140208"
+    ]
+  },
+  {
+    "question": "Quel est le délai avant récolte recommandé pour le traitement du mildiou du raisin avec le produit MADISON ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit KAMBA 480 SL et quelles protections de l'opérateur sont requises pendant le mélange/chargement ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "La dose retenue est de 0.6 L/ha. Pendant le mélange/chargement, le conducteur doit porter des gants en nitrile certifiés EN 374‑3, une combinaison polyester 65 %/coton 35 % d’au moins 230 g/m² avec traitement déperlant, ainsi qu’un EPI partiel (blouse ou tablier à manches longues) de catégorie III, type PB (3).",
+    "expected_doc_ids": [
+      "164"
+    ],
+    "expected_amm": [
+      "2180271"
+    ]
+  },
+  {
+    "question": "Comparer les doses retenues et les exigences de protection de l'opérateur entre les produits KAMBA 480 SL et ARCADIS SC lors du nettoyage du matériel de pulvérisation.",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "KAMBA 480 SL a une dose retenue de 0.6 L/ha, tandis qu’ARCADIS SC est recommandé à 1.5 L/ha. Pour le nettoyage, KAMBA 480 SL impose des gants EN 374‑3 et la même combinaison polyester/coton avec EPI partiel, alors qu’ARCADIS SC requiert des gants certifiés NF EN ISO 374‑1/A1 et NF EN 16523‑1+A1 (type A) ainsi qu’un EPI vestimentaire conforme à la norme NF EN ISO 27065/A1 et le même EPI partiel de catégorie III, type PB (3).",
+    "expected_doc_ids": [
+      "164",
+      "168"
+    ],
+    "expected_amm": [
+      "2180271",
+      "2150626"
+    ]
+  },
+  {
+    "question": "Quelle protection de l'opérateur est recommandée pour le produit KAMBA 480 SL lors du traitement de la maladie de la rouille du blé ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue, le délai avant récolte (DAR) et le délai de rentrée pour le produit MONSOON ACTIVE utilisé en maïs ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "La dose retenue est de 1.5 L/ha, le DAR n’est pas renseigné (non applicable) et le délai de rentrée est de 48 heures.",
+    "expected_doc_ids": [
+      "172"
+    ],
+    "expected_amm": [
+      "2130164"
+    ]
+  },
+  {
+    "question": "Comparez la dose retenue et les cultures autorisées entre MONSOON ACTIVE (maïs) et C5 FLEX (blé). Lequel des deux a la dose la plus élevée et quelle culture chaque produit cible ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "C5 FLEX a la dose la plus élevée (3.3 L/ha) tandis que MONSOON ACTIVE est à 1.5 L/ha. MONSOON ACTIVE est autorisé pour le maïs (désherbage) et C5 FLEX pour le blé (traitement partiel aérien).",
+    "expected_doc_ids": [
+      "172",
+      "174"
+    ],
+    "expected_amm": [
+      "2130164",
+      "2030342"
+    ]
+  },
+  {
+    "question": "Quelle dose de MONSOON ACTIVE est recommandée pour lutter contre le mildiou du raisin ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose recommandée pour le produit C3-CHOC sur le blé ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "2.0 L/ha",
+    "expected_doc_ids": [
+      "178"
+    ],
+    "expected_amm": [
+      "9300040"
+    ]
+  },
+  {
+    "question": "Comparez les doses recommandées et les cultures cibles des produits C3-CHOC et AGRICHEM MECOPROP-P 600 SL. Lequel a la dose la plus élevée et quelle culture cible chaque produit ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "C3-CHOC : dose de 2.0 L/ha, culture cible blé. AGRICHEM MECOPROP-P 600 SL : dose de 1.33 L/ha, culture cible orge. C3-CHOC a la dose la plus élevée (0.67 L/ha de plus).",
+    "expected_doc_ids": [
+      "178",
+      "180"
+    ],
+    "expected_amm": [
+      "9300040",
+      "2130011"
+    ]
+  },
+  {
+    "question": "Quel traitement le produit C3-CHOC propose-t-il contre la rouille du blé ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit EMCEE utilisé sur l'orge ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "1.0 L/ha",
+    "expected_doc_ids": [
+      "188"
+    ],
+    "expected_amm": [
+      "2190461"
+    ]
+  },
+  {
+    "question": "Comparer les doses retenues des produits EMCEE et EVEREST lorsqu’ils sont appliqués sur l'orge ; quelle différence observe‑t‑on ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "EMCEE : 1.0 L/ha ; EVEREST : 0.75 L/ha ; la différence est de 0.25 L/ha en faveur d'EMCEE.",
+    "expected_doc_ids": [
+      "188",
+      "196"
+    ],
+    "expected_amm": [
+      "2190461",
+      "2200272"
+    ]
+  },
+  {
+    "question": "Quel est le délai avant récolte (DAR) pour le blé traité avec le produit EMCEE ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue et le délai de rentrée pour le produit ANL-F004 ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "La dose retenue pour ANL-F004 est de 5.0 kg/ha et le délai de rentrée est de 6 heures.",
+    "expected_doc_ids": [
+      "204"
+    ],
+    "expected_amm": [
+      "2190264"
+    ]
+  },
+  {
+    "question": "Comparaison des doses et des cultures autorisées entre ANL-F004 et COPASTAR : quelle différence observe‑t‑on ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "ANL-F004 est autorisé sur le blé avec une dose de 5.0 kg/ha, alors que COPASTAR est autorisé sur le maïs avec une dose de 1.0 L/ha.",
+    "expected_doc_ids": [
+      "204",
+      "210"
+    ],
+    "expected_amm": [
+      "2190264",
+      "2180733"
+    ]
+  },
+  {
+    "question": "Quel est le délai d'attente avant récolte pour le traitement du colza avec le produit ANL-F004 ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit CLYDE sur l'orge en désherbage, et quel est le délai de rentrée ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "Dose retenue : 25.0 g/ha ; délai de rentrée : 24 heures.",
+    "expected_doc_ids": [
+      "222"
+    ],
+    "expected_amm": [
+      "2210142"
+    ]
+  },
+  {
+    "question": "Comparez les doses et les délais de rentrée des produits CLYDE et CLEAVE pour l'orge en désherbage ; quel produit a la dose la plus faible et quel produit présente le délai de rentrée le plus court ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "CLYDE : dose 25.0 g/ha, délai de rentrée 24 h ; CLEAVE : dose 1.8 L/ha, délai de rentrée 48 h. CLEAVE a la dose la plus faible (en volume) et CLYDE a le délai de rentrée le plus court.",
+    "expected_doc_ids": [
+      "222",
+      "230"
+    ],
+    "expected_amm": [
+      "2210142",
+      "2200028"
+    ]
+  },
+  {
+    "question": "Quelle est la dose recommandée du produit CLYDE pour lutter contre le fusarium sur le blé ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quelle est la dose retenue pour le produit AUSTRAL PLUS NET sur l'orge ?",
+    "type": "simple",
+    "router_label": 0,
+    "reponse_attendue": "0.5 L/q",
+    "expected_doc_ids": [
+      "244"
+    ],
+    "expected_amm": [
+      "2140078"
+    ]
+  },
+  {
+    "question": "Comparez la dose retenue et le délai avant récolte des produits AUSTRAL PLUS NET (orge) et UNICORN DF (blé) ; lequel a la dose la plus élevée et quel est le DAR du produit avec le DAR le plus long ?",
+    "type": "complexe",
+    "router_label": 1,
+    "reponse_attendue": "AUSTRAL PLUS NET a une dose retenue de 0.5 L/q alors que UNICORN DF a une dose de 5.0 kg/ha, donc UNICORN DF a la dose la plus élevée. Le DAR le plus long est celui de UNICORN DF, soit 35.0 jours.",
+    "expected_doc_ids": [
+      "244",
+      "248"
+    ],
+    "expected_amm": [
+      "2140078",
+      "2160705"
+    ]
+  },
+  {
+    "question": "Quel est le délai avant récolte recommandé pour le traitement du maïs contre la rouille du maïs avec le produit AUSTRAL PLUS NET ?",
+    "type": "hors_usage",
+    "router_label": 0,
+    "reponse_attendue": "Information non mentionnée dans les documents officiels.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Bonjour, comment fonctionne cet assistant ?",
+    "type": "salutation",
+    "router_label": 2,
+    "reponse_attendue": "Message d'accueil et présentation des fonctionnalités.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Merci beaucoup pour votre aide, bonne journée !",
+    "type": "salutation",
+    "router_label": 2,
+    "reponse_attendue": "Formule de politesse de clôture.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  },
+  {
+    "question": "Quel temps fait-il aujourd'hui à Lyon ?",
+    "type": "salutation",
+    "router_label": 2,
+    "reponse_attendue": "Hors domaine phytosanitaire.",
+    "expected_doc_ids": [],
+    "expected_amm": []
+  }
+]

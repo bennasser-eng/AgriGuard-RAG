@@ -3,6 +3,8 @@
 
 from src.retrieval.hybrid_search import HybridRetriever
 
+
+
 def test_hybrid_search():
     retriever = HybridRetriever()
     try:

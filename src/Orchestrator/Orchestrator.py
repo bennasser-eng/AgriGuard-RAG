@@ -9,6 +9,7 @@ import os
 from typing import List, Dict, Any, Optional
 from groq import Groq
 
+from src.Cache.semantic_cache import SemanticCache
 from src.retrieval.hybrid_search import HybridRetriever
 from src.router.router import IntentRouter
 from src.agent.reasoning_agent import ReasoningAgent
@@ -17,32 +18,28 @@ from src.router.schemas import QueryComplexity
 SYSTEM_PROMPT = """Tu es un assistant expert de la réglementation phytosanitaire française (données E-Phy).
 Ton rôle est de répondre aux questions des utilisateurs en t'appuyant STRICTEMENT sur les documents fournis en contexte.
 
-Règles de conduite :
-1. Si l'information exacte n'est pas présente dans les documents fournis, réponds explicitement : "Je ne dispose pas de cette information dans la base de données E-Phy."
+Règles génerales:
+1. Si l'information exacte n'est pas présente dans les documents fournis, réponds explicitement : "Je ne dispose pas de cette information."
 2. Ne suppose jamais de valeurs et n'invente aucun délai, dosage ou numéro d'AMM.
 3. Cite le nom du produit et son numéro d'AMM dans ta réponse lorsque c'est pertinent.
 4. Reste direct, précis et factuel.
 
 Règles impératives de traçabilité et de rigueur :
 1. Chaque affirmation, chiffre, dose ou statut d'autorisation doit obligatoirement citer sa source entre crochets à la fin de la phrase ou dans le tableau (ex. [SOURCE 1], [SOURCE 2]).
-2. Pour chaque étape de ton raisonnement ou point de comparaison, mentionne explicitement le produit, l'AMM et la source documentaire utilisée.
-3. Si une information est absente des fiches fournies, indique explicitement : "Donnée non disponible dans les fiches E-Phy fournies". N'invente rien.
+2. Pour chaque étape de raisonnement ou point de comparaison, mentionne explicitement le produit, l'AMM et la source documentaire utilisée.
 4. Conclus systématiquement par une section récapitulative listant la correspondance exacte entre chaque [SOURCE X] et la fiche E-Phy associée (Nom, AMM, Culture).
 """
 
 class Orchestrator:
-    def __init__(
-        self, 
-        retriever=None, 
-        router=None, 
-        model_simple: str = "llama-3.1-8b-instant", 
-        model_reasoning: str = "llama-3.3-70b-versatile"
+    def __init__(self, cache = None, retriever=None, router=None, 
+        model_simple: str = "llama-3.1-8b-instant", model_reasoning: str = "llama-3.3-70b-versatile"
     ):
+        self.cache = cache or SemanticCache()
         self.retriever = retriever or HybridRetriever()
         self.router = router or IntentRouter()
         self.model_simple = model_simple
         self.model_reasoning = model_reasoning
-        
+
         # Récupération de la clé API (gère os.environ et st.secrets)
         api_key = os.getenv("GROQ_API_KEY")
         if not api_key:
@@ -57,6 +54,7 @@ class Orchestrator:
 
         self.client = Groq(api_key=api_key)
         self.reasoning_agent = ReasoningAgent(retriever=self.retriever, model_name=self.model_reasoning)
+
     
     def _format_context(self, docs: List[Dict[str, Any]]) -> str:
         """Formate le contexte documentaire avec des identifiants explicites."""
@@ -75,33 +73,49 @@ class Orchestrator:
             )
         return "\n".join(formatted_chunks)
 
+
+ 
     def answer(self, query: str, top_k: int = 3, culture: Optional[str] = None, numero_amm=None, type_usage=None, use_llm: bool = True):
-        """Pipeline complet : Routing -> Retrieval -> Formatting -> Inférence Groq."""
+        """Pipeline: (Embediing de query -> Matching with Cache) -> Routing -> Retrieval -> Formatting -> Inférence Groq."""
+
+        # we check if query matches a known intent in the cache (greetings, out_of_scope, etc.)(the cache is in semantic_cache_seeds.json)
+        cache_response = self.cache.match(query)
+        if cache_response:
+            intent, response, score = cache_response
+            print(f"[CACHE HIT] Intent: {intent} | Score: {score:.4f}\nRéponse: {response}")
+            return {"answer": response, "sources": [], "query_complexity": "HORS_CONTEXT"}
         
-        # 1. Routing d'intention
+        print("[CACHE MISS] Requête à transmettre au routeur d'intention.")
+        
+        # Routing d'intention
         intent_router_decision = self.router.route(query=query)
         is_complex = getattr(intent_router_decision, "complexity", None) == QueryComplexity.COMPLEX
-
+        is_hors_context = getattr(intent_router_decision, "complexity", None) == QueryComplexity.HORS_CONTEXT
+        
+        
         if is_complex:
             print(f"[RAG-Enhanced-Agent] Passage via ReasoningAgent ({self.reasoning_agent.model_name})...")
             result = self.reasoning_agent.run(query=query, top_k_per_subquery=top_k)
 
             return {
-                "answer": result.get("answer") or result.get("response", ""),
-                "sources": result.get("sources") or result.get("context_used", []),
+                "answer": result.get("response", ""),
+                "sources": result.get("sources", []) ,
+                "sub_queries": result.get("sub_queries", []),
+                "Thought_Decomposition": result.get("thought_decomposition", ""),
                 "query_complexity": "COMPLEX",
             }
         
-        else:
-            print(f"[RAGAgent] Aiguillage RAG Simple ({self.model_simple})...")
-            retrieved_docs = self.retriever.search(
-                query=query, 
-                top_k=top_k, 
-                culture=culture, 
-                numero_amm=numero_amm, 
-                type_usage=type_usage
-            )
+        else: # Either simple query or hors_context query
+            if is_hors_context:
+                print(f"[LLM] Passage via LLM without augmented context ({self.model_simple})...")
+                # we use llm without augmented context  
+                result = ""
 
+            else:
+                print(f"[RAGAgent] Aiguillage RAG Simple ({self.model_simple})...")
+                retrieved_docs = self.retriever.search(query=query, top_k=top_k, culture=culture, numero_amm=numero_amm, type_usage=type_usage)
+
+            # Format context for both simple and hors_context queries
             context_str = self._format_context(retrieved_docs)
             user_prompt = f"CONTEXTE:\n{context_str}\n\nQUESTION:\n{query}"
 
@@ -114,9 +128,9 @@ class Orchestrator:
                             {"role": "system", "content": SYSTEM_PROMPT},
                             {"role": "user", "content": user_prompt}
                         ],
-                        temperature=0.1,
-                        max_tokens=1024
+                        temperature=0.1, max_tokens=1024
                     )
+                
                     response_text = chat_completion.choices[0].message.content
                 except Exception as e:
                     response_text = f"[Erreur Groq] Échec de l'inférence : {e}"
@@ -126,8 +140,10 @@ class Orchestrator:
             return {
                 "answer": response_text,
                 "sources": retrieved_docs,
-                "query_complexity": "SIMPLE",
+                "query_complexity": "HORS_CONTEXT" if is_hors_context else "SIMPLE",
             }
+
+
 
     def close(self):
         if self.retriever:
